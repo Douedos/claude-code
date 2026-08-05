@@ -1,0 +1,410 @@
+<title>Concept Atlas · Belief Engine Dictionary v1.3</title>
+<style>
+:root{
+  --bg:#f5f6f8; --panel:#ffffff; --ink:#141a22; --muted:#5b6675; --line:#d8dde5;
+  --accent:#e8a33d; --accent-ink:#8a5a10; --chipbg:#eceff3; --dim:.16;
+  --mono:ui-monospace,'SF Mono','Cascadia Code',Menlo,Consolas,monospace;
+  --sans:system-ui,'Segoe UI',Roboto,'Helvetica Neue',sans-serif;
+}
+@media (prefers-color-scheme: dark){:root{
+  --bg:#10151c; --panel:#171e27; --ink:#dfe5ec; --muted:#8b96a5; --line:#2a3442;
+  --accent:#e8a33d; --accent-ink:#f0c069; --chipbg:#212a36;
+}}
+:root[data-theme="dark"]{
+  --bg:#10151c; --panel:#171e27; --ink:#dfe5ec; --muted:#8b96a5; --line:#2a3442;
+  --accent:#e8a33d; --accent-ink:#f0c069; --chipbg:#212a36;
+}
+:root[data-theme="light"]{
+  --bg:#f5f6f8; --panel:#ffffff; --ink:#141a22; --muted:#5b6675; --line:#d8dde5;
+  --accent:#e8a33d; --accent-ink:#8a5a10; --chipbg:#eceff3;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:14px;
+  display:flex;flex-direction:column;overflow:hidden}
+header{display:flex;align-items:baseline;gap:14px;padding:10px 16px;border-bottom:1px solid var(--line);
+  background:var(--panel);flex-wrap:wrap}
+header h1{font-size:15px;margin:0;font-weight:650;letter-spacing:.2px}
+header h1 .v{color:var(--muted);font-weight:400}
+#stats{color:var(--muted);font-size:12px;font-variant-numeric:tabular-nums;letter-spacing:.2px}
+#hint{margin-left:auto;color:var(--muted);font-size:12px}
+#layout{display:flex;flex:1;min-height:0}
+/* ---- left rail ---- */
+#rail{width:232px;min-width:232px;border-right:1px solid var(--line);background:var(--panel);
+  display:flex;flex-direction:column;min-height:0}
+#searchwrap{padding:10px;border-bottom:1px solid var(--line)}
+#search{width:100%;padding:7px 9px;border:1px solid var(--line);border-radius:6px;
+  background:var(--bg);color:var(--ink);font-family:var(--mono);font-size:12.5px;outline:none}
+#search:focus{border-color:var(--accent)}
+#results{overflow-y:auto;flex:0 1 auto;max-height:34%;border-bottom:1px solid var(--line)}
+#results:empty{display:none;border-bottom:none}
+.res{padding:5px 12px;font-family:var(--mono);font-size:12px;cursor:pointer;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.res:hover,.res:focus{background:var(--chipbg);outline:none}
+.res .dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:7px}
+#tiers{padding:10px 12px;overflow-y:auto}
+#tiers .lbl{font-size:10.5px;text-transform:uppercase;letter-spacing:.9px;color:var(--muted);margin:2px 0 8px}
+.tier{display:flex;align-items:center;gap:8px;padding:3.5px 6px;border-radius:5px;cursor:pointer;
+  user-select:none;font-size:12.5px}
+.tier:hover{background:var(--chipbg)}
+.tier .dot{width:9px;height:9px;border-radius:50%;flex:none}
+.tier .n{margin-left:auto;color:var(--muted);font-size:11px;font-variant-numeric:tabular-nums}
+.tier.off{opacity:.35}
+.tier.off .dot{background:var(--muted)!important}
+#railfoot{margin-top:auto;padding:10px 12px;border-top:1px solid var(--line);
+  color:var(--muted);font-size:11px;line-height:1.5}
+#railfoot b{color:var(--ink);font-weight:600}
+/* ---- canvas ---- */
+#stage{flex:1;position:relative;min-width:0}
+canvas{position:absolute;inset:0;cursor:grab}
+canvas.drag{cursor:grabbing}
+#tip{position:absolute;pointer-events:none;background:var(--panel);border:1px solid var(--line);
+  border-radius:6px;padding:5px 9px;font-family:var(--mono);font-size:12px;display:none;
+  box-shadow:0 2px 10px rgba(0,0,0,.18);max-width:300px;z-index:5}
+#tip .t{color:var(--muted);font-family:var(--sans);font-size:11px}
+/* ---- detail panel ---- */
+#detail{width:320px;min-width:320px;border-left:1px solid var(--line);background:var(--panel);
+  overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px}
+#detail .empty{color:var(--muted);font-size:13px;line-height:1.6;margin-top:8px}
+#detail h2{font-family:var(--mono);font-size:14px;margin:0;word-break:break-all;line-height:1.4}
+.badges{display:flex;gap:6px;flex-wrap:wrap}
+.badge{font-size:10.5px;text-transform:uppercase;letter-spacing:.7px;padding:2.5px 8px;
+  border-radius:99px;background:var(--chipbg);color:var(--muted)}
+.badge.tier{color:#fff}
+:root[data-theme="dark"] .badge.tier,body .badge.tier{color:#10151c}
+.sec .lbl{font-size:10.5px;text-transform:uppercase;letter-spacing:.9px;color:var(--muted);margin-bottom:5px}
+.sec .body{font-size:12.5px;line-height:1.55}
+.formula{font-family:var(--mono);font-size:11.5px;background:var(--chipbg);border-radius:6px;
+  padding:8px 10px;overflow-x:auto;white-space:pre-wrap;word-break:break-word;line-height:1.5}
+.links{display:flex;flex-direction:column;gap:4px}
+.link{font-family:var(--mono);font-size:11.5px;padding:4px 8px;border:1px solid var(--line);
+  border-radius:5px;cursor:pointer;background:none;color:var(--ink);text-align:left;
+  display:flex;align-items:center;gap:7px}
+.link:hover,.link:focus{border-color:var(--accent);outline:none}
+.link .dot{width:7px;height:7px;border-radius:50%;flex:none}
+.none{color:var(--muted);font-size:12px;font-style:italic}
+@media (max-width:900px){
+  #layout{flex-direction:column;overflow-y:auto}
+  #rail,#detail{width:100%;min-width:0;border:none;border-bottom:1px solid var(--line)}
+  #stage{min-height:420px}
+}
+@media (prefers-reduced-motion: reduce){canvas{transition:none}}
+</style>
+
+<header>
+  <h1>Concept Atlas <span class="v">· belief-engine dictionary v1.3</span></h1>
+  <span id="stats"></span>
+  <span id="hint">click a node to trace its lineage · drag to pan · wheel to zoom</span>
+</header>
+<div id="layout">
+  <div id="rail">
+    <div id="searchwrap"><input id="search" type="search" placeholder="search concepts…" aria-label="Search concepts"></div>
+    <div id="results" role="listbox"></div>
+    <div id="tiers"><div class="lbl">Tiers — click to toggle</div></div>
+    <div id="railfoot">Edges are <b>dependency arrows</b>: concept → its inputs, extracted from formulas and curated for composites. Amber = lineage of the selected concept (inputs upstream, dependents downstream).</div>
+  </div>
+  <div id="stage"><canvas id="cv"></canvas><div id="tip"></div></div>
+  <aside id="detail" aria-live="polite">
+    <div class="empty">Select a concept to see its definition, formula, and its place in the dependency graph.<br><br>Try <span style="font-family:var(--mono)">indicator.altman_z</span> — a composite whose lineage reaches raw balance-sheet items — or <span style="font-family:var(--mono)">raw.revenue</span>, the most depended-upon concept in the dictionary.</div>
+  </aside>
+</div>
+
+<script>
+const GRAPH = /*__GRAPH__*/;
+
+const TIER_COLORS = {
+  raw:"#7d8fa8", derived:"#2fa08e", signal:"#58b368", indicator:"#9a6fd8",
+  market:"#4a8fd4", macro:"#e0793a", filing:"#b08a52", event:"#e2688c",
+  est:"#c2b23b", reference:"#8a8f98", ownership:"#3fb0c0", news:"#c05252",
+  adhoc:"#9aa83e", meta:"#6d6d78"
+};
+const TIER_ORDER = ["raw","derived","signal","indicator","market","macro","filing",
+  "event","est","ownership","news","adhoc","reference","meta"];
+
+const nodes = GRAPH.concepts.map(c=>({...c, x:0,y:0,vx:0,vy:0,deg:0}));
+const byId = new Map(nodes.map(n=>[n.id,n]));
+const edges = GRAPH.edges.filter(([a,b])=>byId.has(a)&&byId.has(b))
+  .map(([a,b])=>({s:byId.get(a), t:byId.get(b)}));
+edges.forEach(e=>{e.s.deg++; e.t.deg++;});
+const outMap = new Map(), inMap = new Map();
+nodes.forEach(n=>{outMap.set(n.id,[]); inMap.set(n.id,[]);});
+edges.forEach(e=>{outMap.get(e.s.id).push(e.t); inMap.get(e.t.id).push(e.s);});
+
+document.getElementById("stats").textContent =
+  `${nodes.length} concepts · ${edges.length} dependencies · 21 files`;
+
+/* ---- layout: tier anchors on an ellipse, force sim ---- */
+const tiers = {};
+nodes.forEach(n=>{(tiers[n.tier] ||= []).push(n);});
+const activeTiers = new Set(Object.keys(tiers));
+let W=1200,H=800;
+function anchorFor(t){
+  const i = TIER_ORDER.indexOf(t), N = TIER_ORDER.length;
+  const a = (i/N)*Math.PI*2 - Math.PI/2;
+  return {x: W/2 + Math.cos(a)*W*0.30, y: H/2 + Math.sin(a)*H*0.30};
+}
+function seed(){
+  TIER_ORDER.forEach(t=>{
+    (tiers[t]||[]).forEach((n,i)=>{
+      const A = anchorFor(t), r = 20 + 9*Math.sqrt(i), a = i*2.399963;
+      n.x = A.x + Math.cos(a)*r; n.y = A.y + Math.sin(a)*r; n.vx=n.vy=0;
+    });
+  });
+}
+let alpha = 1;
+function tick(){
+  const rep = 900;
+  for(let i=0;i<nodes.length;i++){
+    const a = nodes[i];
+    for(let j=i+1;j<nodes.length;j++){
+      const b = nodes[j];
+      let dx=a.x-b.x, dy=a.y-b.y, d2=dx*dx+dy*dy;
+      if(d2>16000||d2===0) continue;
+      const f = rep/d2 * alpha;
+      const d=Math.sqrt(d2); dx/=d; dy/=d;
+      a.vx+=dx*f; a.vy+=dy*f; b.vx-=dx*f; b.vy-=dy*f;
+    }
+  }
+  edges.forEach(e=>{
+    const dx=e.t.x-e.s.x, dy=e.t.y-e.s.y, d=Math.sqrt(dx*dx+dy*dy)||1;
+    const f=(d-70)*0.012*alpha;
+    e.s.vx+=dx/d*f; e.s.vy+=dy/d*f; e.t.vx-=dx/d*f; e.t.vy-=dy/d*f;
+  });
+  nodes.forEach(n=>{
+    const A=anchorFor(n.tier);
+    n.vx+=(A.x-n.x)*0.008*alpha; n.vy+=(A.y-n.y)*0.008*alpha;
+    n.x+=n.vx; n.y+=n.vy; n.vx*=0.82; n.vy*=0.82;
+  });
+  alpha*=0.985;
+}
+
+/* ---- render ---- */
+const cv=document.getElementById("cv"), ctx=cv.getContext("2d");
+let view={x:0,y:0,k:1}, hovered=null, selected=null, lineage=null;
+function cssVar(n){return getComputedStyle(document.documentElement).getPropertyValue(n).trim();}
+let C={};
+function refreshColors(){C={bg:cssVar("--bg"),ink:cssVar("--ink"),muted:cssVar("--muted"),
+  line:cssVar("--line"),accent:cssVar("--accent")};}
+refreshColors();
+new MutationObserver(refreshColors).observe(document.documentElement,{attributes:true,attributeFilter:["data-theme"]});
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change",refreshColors);
+
+function resize(){
+  const r=cv.parentElement.getBoundingClientRect();
+  cv.width=r.width*devicePixelRatio; cv.height=r.height*devicePixelRatio;
+  cv.style.width=r.width+"px"; cv.style.height=r.height+"px";
+  W=r.width; H=r.height;
+}
+function nodeR(n){return 3.5 + Math.min(9, Math.sqrt(n.deg)*1.6);}
+function visible(n){return activeTiers.has(n.tier);}
+function draw(){
+  ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);
+  ctx.clearRect(0,0,W,H);
+  ctx.save(); ctx.translate(view.x,view.y); ctx.scale(view.k,view.k);
+  const inLin = id => lineage && lineage.has(id);
+  // edges
+  edges.forEach(e=>{
+    if(!visible(e.s)||!visible(e.t)) return;
+    const hot = lineage ? (inLin(e.s.id)&&inLin(e.t.id)) : false;
+    ctx.globalAlpha = lineage ? (hot?0.9:0.05) : 0.28;
+    ctx.strokeStyle = hot ? C.accent : C.muted;
+    ctx.lineWidth = hot ? 1.4/view.k : 0.7/view.k;
+    ctx.beginPath(); ctx.moveTo(e.s.x,e.s.y); ctx.lineTo(e.t.x,e.t.y); ctx.stroke();
+    // arrowhead toward input (t)
+    if(hot||view.k>1.4){
+      const dx=e.t.x-e.s.x, dy=e.t.y-e.s.y, d=Math.sqrt(dx*dx+dy*dy)||1;
+      const ux=dx/d, uy=dy/d, r=nodeR(e.t)+3;
+      const px=e.t.x-ux*r, py=e.t.y-uy*r, s=4/view.k;
+      ctx.beginPath();
+      ctx.moveTo(px,py);
+      ctx.lineTo(px-ux*s*1.8-uy*s, py-uy*s*1.8+ux*s);
+      ctx.lineTo(px-ux*s*1.8+uy*s, py-uy*s*1.8-ux*s);
+      ctx.closePath(); ctx.fillStyle=hot?C.accent:C.muted; ctx.fill();
+    }
+  });
+  // nodes
+  nodes.forEach(n=>{
+    if(!visible(n)) return;
+    const hot = lineage ? inLin(n.id) : true;
+    ctx.globalAlpha = hot?1:0.13;
+    ctx.beginPath(); ctx.arc(n.x,n.y,nodeR(n),0,7);
+    ctx.fillStyle = TIER_COLORS[n.tier]||C.muted; ctx.fill();
+    if(n===selected){
+      ctx.strokeStyle=C.accent; ctx.lineWidth=2.4/view.k;
+      ctx.beginPath(); ctx.arc(n.x,n.y,nodeR(n)+3.2/view.k,0,7); ctx.stroke();
+    } else if(n===hovered){
+      ctx.strokeStyle=C.ink; ctx.lineWidth=1.2/view.k;
+      ctx.beginPath(); ctx.arc(n.x,n.y,nodeR(n)+2/view.k,0,7); ctx.stroke();
+    }
+  });
+  // labels: selected + lineage + hovered + hubs when zoomed
+  ctx.font=`${11/view.k}px ${cssVar("--mono")||"monospace"}`;
+  ctx.textAlign="center";
+  nodes.forEach(n=>{
+    if(!visible(n)) return;
+    const show = n===selected || n===hovered || (lineage&&lineage.has(n.id)) ||
+      (view.k>1.8 && n.deg>=4) || view.k>3;
+    if(!show) return;
+    ctx.globalAlpha = 1;
+    const label=n.id, y=n.y-nodeR(n)-5/view.k;
+    ctx.lineWidth=3/view.k; ctx.strokeStyle=C.bg; ctx.strokeText(label,n.x,y);
+    ctx.fillStyle=(n===selected)?C.accent:C.ink; ctx.fillText(label,n.x,y);
+  });
+  ctx.restore();
+}
+let raf;
+function loop(){
+  if(alpha>0.02) tick();
+  draw();
+  raf=requestAnimationFrame(loop);
+}
+
+/* ---- lineage (ancestors = inputs upstream; descendants = dependents) ---- */
+function computeLineage(id){
+  const set=new Set([id]);
+  const walk=(start,map)=>{const st=[start];
+    while(st.length){const cur=st.pop();
+      (map.get(cur)||[]).forEach(nb=>{if(!set.has(nb.id)){set.add(nb.id);st.push(nb.id);}});}};
+  walk(id,outMap); walk(id,inMap);
+  return set;
+}
+
+/* ---- selection & detail panel ---- */
+const detail=document.getElementById("detail");
+function esc(s){return (s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;");}
+function linkList(list){
+  if(!list.length) return '<div class="none">none in graph</div>';
+  return '<div class="links">'+list.map(n=>
+    `<button class="link" data-id="${n.id}"><span class="dot" style="background:${TIER_COLORS[n.tier]}"></span>${esc(n.id)}</button>`
+  ).join("")+"</div>";
+}
+function select(id, center){
+  selected = byId.get(id)||null;
+  lineage = selected ? computeLineage(id) : null;
+  if(!selected){detail.innerHTML='<div class="empty">Select a concept.</div>';return;}
+  const n=selected, file=GRAPH.files[n.file]||{title:n.file};
+  const ins=inMap.get(id)||[], outs=outMap.get(id)||[];
+  detail.innerHTML = `
+    <h2>${esc(n.id)}</h2>
+    <div class="badges">
+      <span class="badge tier" style="background:${TIER_COLORS[n.tier]}">${n.tier}</span>
+      <span class="badge">${esc(n.file)} · ${esc(file.title||"")}</span>
+    </div>
+    ${n.def?`<div class="sec"><div class="lbl">Definition</div><div class="body">${esc(n.def)}</div></div>`:""}
+    ${n.formula?`<div class="sec"><div class="lbl">Formula</div><div class="formula">${esc(n.formula)}</div></div>`:""}
+    ${n.notes&&n.notes!==n.def?`<div class="sec"><div class="lbl">Notes</div><div class="body">${esc(n.notes)}</div></div>`:""}
+    <div class="sec"><div class="lbl">Inputs — depends on (${outs.length})</div>${linkList(outs)}</div>
+    <div class="sec"><div class="lbl">Dependents — feeds into (${ins.length})</div>${linkList(ins)}</div>`;
+  detail.querySelectorAll(".link").forEach(b=>b.addEventListener("click",()=>select(b.dataset.id,true)));
+  if(center && selected){
+    view.k=Math.max(view.k,1.3);
+    view.x = W/2 - selected.x*view.k; view.y = H/2 - selected.y*view.k;
+  }
+  draw();
+}
+
+/* ---- interaction: pan/zoom/pick ---- */
+function pick(mx,my){
+  const x=(mx-view.x)/view.k, y=(my-view.y)/view.k;
+  let best=null,bd=Infinity;
+  nodes.forEach(n=>{
+    if(!visible(n))return;
+    const dx=n.x-x, dy=n.y-y, d=dx*dx+dy*dy, r=nodeR(n)+4;
+    if(d<r*r && d<bd){best=n;bd=d;}
+  });
+  return best;
+}
+let dragging=false, dragNode=null, lx=0, ly=0, moved=false;
+cv.addEventListener("pointerdown",e=>{
+  const r=cv.getBoundingClientRect(); lx=e.clientX-r.left; ly=e.clientY-r.top;
+  dragNode=pick(lx,ly); dragging=true; moved=false; cv.classList.add("drag");
+  cv.setPointerCapture(e.pointerId);
+});
+cv.addEventListener("pointermove",e=>{
+  const r=cv.getBoundingClientRect(), mx=e.clientX-r.left, my=e.clientY-r.top;
+  const tip=document.getElementById("tip");
+  if(dragging){
+    moved=true;
+    if(dragNode){dragNode.x+=(mx-lx)/view.k; dragNode.y+=(my-ly)/view.k; alpha=Math.max(alpha,0.05);}
+    else {view.x+=mx-lx; view.y+=my-ly;}
+    lx=mx; ly=my; draw();
+  } else {
+    hovered=pick(mx,my);
+    if(hovered){
+      tip.style.display="block";
+      tip.style.left=Math.min(mx+14,W-310)+"px"; tip.style.top=(my+12)+"px";
+      tip.innerHTML=`${esc(hovered.id)}<div class="t">${esc((hovered.def||hovered.formula||"").slice(0,120))}</div>`;
+    } else tip.style.display="none";
+    draw();
+  }
+});
+cv.addEventListener("pointerup",e=>{
+  dragging=false; cv.classList.remove("drag");
+  if(!moved){
+    const r=cv.getBoundingClientRect();
+    const n=pick(e.clientX-r.left,e.clientY-r.top);
+    if(n) select(n.id,false); else {selected=null;lineage=null;select(null);}
+  }
+  dragNode=null;
+});
+cv.addEventListener("wheel",e=>{
+  e.preventDefault();
+  const r=cv.getBoundingClientRect(), mx=e.clientX-r.left, my=e.clientY-r.top;
+  const k2=Math.min(6,Math.max(0.25,view.k*(e.deltaY<0?1.15:0.87)));
+  view.x = mx-(mx-view.x)*(k2/view.k); view.y = my-(my-view.y)*(k2/view.k); view.k=k2;
+  draw();
+},{passive:false});
+
+/* ---- search ---- */
+const searchEl=document.getElementById("search"), resEl=document.getElementById("results");
+searchEl.addEventListener("input",()=>{
+  const q=searchEl.value.trim().toLowerCase();
+  resEl.innerHTML="";
+  if(q.length<2) return;
+  const score=n=>{
+    const id=n.id.toLowerCase();
+    if(id.startsWith(q)||id.split(".").some(p=>p.startsWith(q))) return 0;
+    if(id.includes(q)) return 1;
+    if(n.def.toLowerCase().includes(q)) return 2;
+    return 9;
+  };
+  nodes.map(n=>[score(n),n]).filter(([s])=>s<9).sort((a,b)=>a[0]-b[0])
+    .map(([,n])=>n).slice(0,40).forEach(n=>{
+    const d=document.createElement("div");
+    d.className="res"; d.tabIndex=0; d.setAttribute("role","option");
+    d.innerHTML=`<span class="dot" style="background:${TIER_COLORS[n.tier]}"></span>${esc(n.id)}`;
+    const go=()=>select(n.id,true);
+    d.addEventListener("click",go);
+    d.addEventListener("keydown",ev=>{if(ev.key==="Enter")go();});
+    resEl.appendChild(d);
+  });
+});
+searchEl.addEventListener("keydown",e=>{
+  if(e.key==="Enter"){const f=resEl.querySelector(".res"); if(f) f.click();}
+});
+
+/* ---- tier filter ---- */
+const tiersEl=document.getElementById("tiers");
+TIER_ORDER.forEach(t=>{
+  if(!tiers[t]) return;
+  const d=document.createElement("div");
+  d.className="tier"; d.tabIndex=0; d.setAttribute("role","switch"); d.setAttribute("aria-checked","true");
+  d.innerHTML=`<span class="dot" style="background:${TIER_COLORS[t]}"></span>${t}<span class="n">${tiers[t].length}</span>`;
+  const flip=()=>{
+    if(activeTiers.has(t)){activeTiers.delete(t);d.classList.add("off");d.setAttribute("aria-checked","false");}
+    else {activeTiers.add(t);d.classList.remove("off");d.setAttribute("aria-checked","true");}
+    draw();
+  };
+  d.addEventListener("click",flip);
+  d.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();flip();}});
+  tiersEl.appendChild(d);
+});
+
+/* ---- boot ---- */
+addEventListener("resize",()=>{resize();draw();});
+resize(); seed();
+if(matchMedia("(prefers-reduced-motion: reduce)").matches){
+  for(let i=0;i<300;i++) tick();
+  alpha=0; draw(); (function still(){draw();raf=requestAnimationFrame(still);})();
+} else loop();
+</script>
