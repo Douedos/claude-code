@@ -85,6 +85,10 @@
    "title": "Commodities, trade, product",
    "group": "content"
   },
+  "DICT-22": {
+   "title": "OSAP alpha-catalog mapping",
+   "group": "vendor"
+  },
   "DICT-WORKED": {
    "title": "Worked examples",
    "group": "content"
@@ -2724,6 +2728,150 @@
    "notes": "derived from catalog; refresh-cycle features (median product age vs category norm)"
   },
   {
+   "id": "raw.price_open",
+   "file": "DICT-22",
+   "tier": "raw",
+   "def": "Session OHLC companions to raw.price_close (unadjusted, AdjustmentChain applies)",
+   "formula": "",
+   "notes": ""
+  },
+  {
+   "id": "raw.advertising_expense",
+   "file": "DICT-22",
+   "tier": "raw",
+   "def": "Advertising expense (XBRL AdvertisingExpense; often absent \u2192 null, not zero \u2014 absence flagged)",
+   "formula": "",
+   "notes": ""
+  },
+  {
+   "id": "raw.employees",
+   "file": "DICT-22",
+   "tier": "raw",
+   "def": "Employee count (10-K cover/XBRL; annual)",
+   "formula": "",
+   "notes": ""
+  },
+  {
+   "id": "raw.order_backlog",
+   "file": "DICT-22",
+   "tier": "raw",
+   "def": "Order backlog (10-K item, DICT-07 extraction, tier B)",
+   "formula": "",
+   "notes": ""
+  },
+  {
+   "id": "raw.oci",
+   "file": "DICT-22",
+   "tier": "raw",
+   "def": "Other comprehensive income components",
+   "formula": "",
+   "notes": ""
+  },
+  {
+   "id": "raw.buildings_and_land",
+   "file": "DICT-22",
+   "tier": "raw",
+   "def": "PP&E component: buildings + land at cost",
+   "formula": "",
+   "notes": ""
+  },
+  {
+   "id": "raw.convertible_debt",
+   "file": "DICT-22",
+   "tier": "raw",
+   "def": "Convertible debt carrying value (flag form)",
+   "formula": "",
+   "notes": ""
+  },
+  {
+   "id": "raw.long_term_investments",
+   "file": "DICT-22",
+   "tier": "raw",
+   "def": "Long-term investments (non-operating)",
+   "formula": "",
+   "notes": ""
+  },
+  {
+   "id": "indicator.mohanram_g",
+   "file": "DICT-22",
+   "tier": "indicator",
+   "def": "Mohanram G-score: 8 binaries over existing concepts (published individually like f1..f9)",
+   "formula": "",
+   "notes": ""
+  },
+  {
+   "id": "opt.volume_ratio",
+   "file": "DICT-22",
+   "tier": "market",
+   "def": "Option volume (all contracts \u226491d) / stock share volume",
+   "formula": "",
+   "notes": ""
+  },
+  {
+   "id": "credit.issuer_rating",
+   "file": "DICT-22",
+   "tier": "macro",
+   "def": "Issuer credit rating, 21-notch ordinal, KT = rating action (sov.rating pattern at entity level)",
+   "formula": "",
+   "notes": ""
+  },
+  {
+   "id": "est.ltg_mean",
+   "file": "DICT-22",
+   "tier": "est",
+   "def": "Consensus long-term growth forecast (schema-first, revision-gated like est.*)",
+   "formula": "",
+   "notes": ""
+  },
+  {
+   "id": "factor.mkt",
+   "file": "DICT-22",
+   "tier": "market",
+   "def": "Internal daily factor-return series built from our own universe + concepts (frozen construction, V11 recompute)",
+   "formula": "",
+   "notes": ""
+  },
+  {
+   "id": "factor.smb",
+   "file": "DICT-22",
+   "tier": "market",
+   "def": "Internal daily factor-return series built from our own universe + concepts (frozen construction, V11 recompute)",
+   "formula": "",
+   "notes": ""
+  },
+  {
+   "id": "factor.hml",
+   "file": "DICT-22",
+   "tier": "market",
+   "def": "Internal daily factor-return series built from our own universe + concepts (frozen construction, V11 recompute)",
+   "formula": "",
+   "notes": ""
+  },
+  {
+   "id": "factor.umd",
+   "file": "DICT-22",
+   "tier": "market",
+   "def": "Internal daily factor-return series built from our own universe + concepts (frozen construction, V11 recompute)",
+   "formula": "",
+   "notes": ""
+  },
+  {
+   "id": "factor.residual",
+   "file": "DICT-22",
+   "tier": "market",
+   "def": "Per-entity residual return vs named factor model (model_id part of identity, ESG-rule style)",
+   "formula": "",
+   "notes": ""
+  },
+  {
+   "id": "factor.liquidity_agg",
+   "file": "DICT-22",
+   "tier": "market",
+   "def": "Aggregate liquidity innovation series (Pastor\u2013Stambaugh construction)",
+   "formula": "",
+   "notes": ""
+  },
+  {
    "id": "indicator.altman_z",
    "file": "DICT-WORKED",
    "tier": "indicator",
@@ -2772,6 +2920,10 @@
   [
    "credit.hqm_yield",
    "cmdty.spot"
+  ],
+  [
+   "credit.issuer_rating",
+   "sov.rating"
   ],
   [
    "derived.accruals_bs",
@@ -3480,6 +3632,10 @@
   [
    "raw.ebit",
    "raw.special_items"
+  ],
+  [
+   "raw.price_open",
+   "raw.price_close"
   ],
   [
    "ref.riskfree_map",

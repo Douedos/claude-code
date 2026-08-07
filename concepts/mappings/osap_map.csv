@@ -1,0 +1,213 @@
+acronym,description,authors,year,cat_data,cat_econ,disposition,concept_mapping,note
+AbnormalAccruals,Abnormal Accruals,Xie,2001,Accounting,accruals,ready-recipe,"residual of derived.accruals_cf on Jones-model terms (raw.revenue delta, raw.gross_ppe, raw.total_assets) by class.membership",
+Accruals,Accruals,Sloan,1996,Accounting,accruals,ready,derived.accruals_bs,balance-sheet Sloan accrual is the v1 concept
+AccrualsBM,Book-to-market and accruals,Bartov and Kim,2004,Accounting,valuation,ready-recipe,signal.book_to_price x derived.accruals_bs interaction,
+Activism1,Takeover vulnerability,Cremers and Nair,2005,13F,other,partial,own.top10_share + own.inst_pct + external-blockholder flag,holder-level detail exists in Holders map; takeover-vulnerability recipe
+AM,Total assets to market,Fama and French,1992,Accounting,valuation,ready,raw.total_assets / raw.market_cap,
+AnalystRevision,EPS forecast revision,"Hawkins, Chamberlin, Daniel",1984,Analyst,earnings forecast,blocked-data,est.eps_revision_3m,THE gated concept: revision-level estimates vendor required
+AnnouncementReturn,Earnings announcement return,"Chan, Jegadeesh and Lakonishok",1996,Price,earnings event,ready,market.ret around event.earnings_date_confirmed window,
+AssetGrowth,Asset growth,"Cooper, Gulen and Schill",2008,Accounting,investment,ready,signal.asset_growth,direct hit (sign-inverted)
+BetaLiquidityPS,Pastor-Stambaugh liquidity beta,Pastor and Stambaugh,2003,Price,liquidity,new-concept,beta to factor.liquidity_agg (Pastor-Stambaugh),needs internal factor-series construction (factor.*)
+BetaTailRisk,Tail risk beta,Kelly and Jiang,2014,Price,risk,ready-recipe,beta to cross-sectional tail-risk index (internal series),
+betaVIX,Systematic volatility,Ang et al.,2006,Price,volatility,ready-recipe,ret sensitivity to d(macro.vix),both series exist
+BM,"Book to market, original (Stattman 1980)",Stattman,1980,Accounting,valuation,ready,signal.book_to_price,direct hit
+BMdec,Book to market using December ME,Fama and French,1992,Accounting,valuation,ready-recipe,book_to_price with December market-cap convention (ref calendar),
+BookLeverage,Book leverage (annual),Fama and French,1992,Accounting,leverage,ready,raw.total_assets / raw.common_equity,
+BPEBM,Leverage component of BM,"Penman, Richardson and Tuna",2007,Accounting,leverage,ready-recipe,leverage component of BM decomposition (book/market netdebt split),
+Cash,Cash to assets,Palazzo,2012,Accounting,asset composition,ready,raw.cash_and_equivalents + raw.short_term_investments / raw.total_assets,
+CashProd,Cash Productivity,Chandrashekar and Rao,2009,Accounting,profitability alt,ready,(raw.market_cap + raw.total_debt - raw.total_assets) / cash,
+CBOperProf,Cash-based operating profitability,Ball et al.,2016,Accounting,profitability,ready,cash-based op profit (op profit - accrual deltas) / assets,all component raws exist
+CF,Cash flow to market,"Lakonishok, Shleifer, Vishny",1994,Accounting,valuation,ready,(raw.net_income + raw.dep_amort) / raw.market_cap,
+cfp,Operating Cash flows to price,"Desai, Rajgopal, Venkatachalam",2004,Accounting,valuation,ready,signal.cfo_yield,direct hit
+ChangeInRecommendation,Change in recommendation,Jegadeesh et al.,2004,Analyst,recommendation,partial,analyst.rating_delta_3m,snapshot-diff caveat
+ChAssetTurnover,Change in Asset Turnover,Soliman,2008,Accounting,sales growth,ready,d(raw.revenue / avg raw.total_assets),
+ChEQ,Growth in book equity,Lockwood and Prombutr,2010,Accounting,investment,ready,"growth(raw.common_equity, 1y)",
+ChForecastAccrual,Change in Forecast and Accrual,Barth and Hutton,2004,Analyst,earnings forecast,blocked-data,revision x accrual interaction,revision leg gated
+ChInv,Inventory Growth,Thomas and Zhang,2002,Accounting,investment alt,ready,d(raw.inventory) / avg assets,
+ChInvIA,Change in capital inv (ind adj),Abarbanell and Bushee,1998,Accounting,investment growth,ready-recipe,capex+inv growth minus class.membership industry mean,industry-adjust recipe
+ChNAnalyst,Decline in Analyst Coverage,Scherbina,2008,Analyst,earnings event,partial,d(analyst.rating_count or est count),"snapshot diffs, lag-blurred (DICT-16 caveat)"
+ChNNCOA,Change in Net Noncurrent Op Assets,Soliman,2008,Accounting,investment alt,ready,d(noncurrent operating assets - liabilities) / assets,composes existing raws
+ChNWC,Change in Net Working Capital,Soliman,2008,Accounting,investment alt,ready,d(raw.working_capital net of cash/debt) / assets,
+ChTax,Change in Taxes,Thomas and Zhang,2011,Accounting,other,ready,"d(raw.tax_expense, 4q) / lag assets",
+CitationsRD,Citations to RD expenses,"Hirschleifer, Hsu and Li",2013,Other,profitability alt,blocked-data,patent citations / raw.rnd,patent dataset = DICT-20 adhoc candidate
+CompEquIss,Composite equity issuance,Daniel and Titman,2006,Accounting,external financing,ready-recipe,"log growth(raw.market_cap) - cumulative market.ret_1d_tr, 5y",
+CompositeDebtIssuance,Composite debt issuance,"Lyandres, Sun and Zhang",2008,Accounting,external financing,ready,"log growth(raw.total_debt, 5y)",
+ConvDebt,Convertible debt indicator,Valta,2016,Accounting,external financing,new-concept,raw.convertible_debt indicator,XBRL convertible tags; new raw item
+CoskewACX,Coskewness using daily returns,"Ang, Chen and Xing",2006,Price,risk,ready-recipe,daily coskewness vs benchmark,
+CPVolSpread,Call minus Put Vol,Bali and Hovakimian,2009,Options,optionrisk,ready,-opt.skew_25d (call minus put),sign flip of existing
+dVolCall,Change in call vol,"An, Ang, Bali, Cakici",2014,Options,informed trading,ready,d(call-side IV),"surface variant, construction exists"
+dVolPut,Change in put vol,"An, Ang, Bali, Cakici",2014,Options,informed trading,ready,d(put-side IV),
+dCPVolSpread,Change in put vol minus change in call vol,"An, Ang, Bali, Cakici",2014,Options,informed trading,ready,d(opt call-put IV spread),param variant of opt.skew_25d + opt.iv_dlt_1d
+CredRatDG,Credit Rating Downgrade,Dichev and Piotroski,2001,Analyst,other,new-concept,credit.issuer_rating downgrade event,needs issuer-ratings feed; concept + source shopping-list item
+CustomerMomentum,Customer momentum,Cohen and Frazzini,2008,Other,lead lag,partial,link.exposure(customer) weighted market.momentum,framework exists; customer links must be populated (filing-derived)
+DelBreadth,Breadth of ownership,"Chen, Hong and Stein",2002,13F,ownership,partial,d(own.inst_holder_count) scaled,13F lag rules (DICT-16) apply; breadth needs consistent holder universe
+DelCOA,Change in current operating assets,Richardson et al.,2005,Accounting,investment alt,ready,d(raw.current_assets - raw.cash_and_equivalents) / avg assets,
+DelCOL,Change in current operating liabilities,Richardson et al.,2005,Accounting,external financing,ready,d(raw.current_liabilities - raw.short_term_debt) / avg assets,
+DelEqu,Change in equity to assets,Richardson et al.,2005,Accounting,investment,ready,d(raw.common_equity) / avg assets,
+DelFINL,Change in financial liabilities,Richardson et al.,2005,Accounting,external financing,ready,d(raw.total_debt + raw.preferred_equity) / avg assets,
+DelLTI,Change in long-term investment,Richardson et al.,2005,Accounting,investment,new-concept,d(raw.long_term_investments),new raw item; XBRL LongTermInvestments
+DelNetFin,Change in net financial assets,Richardson et al.,2005,Accounting,investment alt,ready,d(financial assets - financial liabilities) / avg assets,
+DivInit,Dividend Initiation,"Michaely, Thaler and Womack",1995,Event,payout indicator,ready,first action.dividend_cash after >=2y none,
+DivOmit,Dividend Omission,"Michaely, Thaler and Womack",1995,Event,payout indicator,ready,expected dividend missed (declaration pattern break),
+DivSeason,Dividend seasonality,Hartzmark and Salomon,2013,Event,payout indicator,ready-recipe,predicted ex-month from action.dividend_cash history,
+DivYieldST,Predicted div yield next month,Litzenberger and Ramaswamy,1979,Accounting,valuation,ready-recipe,predicted next-month dps from event.dividend_declaration pattern,action/dividend history exists
+dNoa,change in net operating assets,"Hirshleifer, Hou, Teoh, Zhang",2004,Accounting,investment,ready,d(derived.noa),
+DolVol,Past trading volume,"Brennan, Chordia, Subra",1998,Trading,volume,ready,market.dollar_volume_63d (param 1m),direct hit
+EarningsConsistency,Earnings consistency,Alwathainani,2009,Accounting,earnings growth,ready-recipe,streak stats over raw.eps_diluted FY history,
+EarningsForecastDisparity,Long-vs-short EPS forecasts,Da and Warachka,2011,Analyst,earnings forecast,blocked-data,LT vs ST forecast gap,needs fy1/fy2/LTG detail from estimates vendor
+EarningsStreak,Earnings surprise streak,Loh and Warachka,2012,Accounting,earnings growth,ready-recipe,sign-streak of earnings surprise (est.surprise_last history),surprise leg wired tier C
+EarningsSurprise,Earnings Surprise,"Foster, Olsen and Shevlin",1984,Accounting,earnings growth,ready,"SUE: d(raw.eps_diluted, 4q) / std(8q)",seasonal-random-walk form needs no estimates
+EarnSupBig,Earnings surprise of big firms,Hou,2007,Accounting,lead lag,ready-recipe,big-firm earnings surprise aggregated by class.membership,lead-lag recipe
+EBM,Enterprise component of BM,"Penman, Richardson and Tuna",2007,Accounting,valuation,ready-recipe,enterprise component of BM (net-debt-adjusted book/price),
+EntMult,Enterprise Multiple,Loughran and Wellman,2011,Accounting,valuation,ready,1 / signal.ebitda_to_ev,inverse of existing
+EP,Earnings-to-Price Ratio,Basu,1977,Accounting,valuation,ready,signal.earnings_yield,direct hit
+EquityDuration,Equity Duration,"Dechow, Sloan and Soliman",2004,Accounting,valuation,ready-recipe,Dechow duration: forecast CF ladder over concepts,
+ExchSwitch,Exchange Switch,Dharan and Ikenberry,1995,Event,other,ready,action.exchange_move recency,
+ExclExp,Excluded Expenses,"Doyle, Lundholm and Soliman",2003,Analyst,composite accounting,blocked-data,GAAP vs street EPS gap,needs street (IBES-style) actuals
+FEPS,Analyst earnings per share,"Cen, Wei, and Zhang",2006,Analyst,profitability,partial,est.eps_fy1 (schema exists),servable tier C from snapshot when wired
+fgr5yrLag,Long-term EPS forecast,La Porta,1996,Analyst,earnings forecast,blocked-data,est.ltg_mean (new est concept),schema addition; vendor gated
+FirmAgeMom,Firm Age - Momentum,Zhang,2006,Price,momentum,ready-recipe,market.momentum_12_1 conditioned on ident age,
+ForecastDispersion,EPS Forecast Dispersion,"Diether, Malloy and Scherbina",2002,Analyst,volatility,blocked-data,est.eps_ntm_std / |mean|,schema exists; vendor gated
+Frontier,Efficient frontier index,Nguyen and Swanson,2009,Accounting,valuation,ready-recipe,residual of log(M/B) on fundamentals cross-section,
+Governance,Governance Index,"Gompers, Ishii and Metrick",2003,Other,other,blocked-data,G-index,underlying index discontinued; adhoc dataset if ever needed
+GP,gross profits / total assets,Novy-Marx,2013,Accounting,profitability,ready,derived.gpoa,direct hit
+GrAdExp,Growth in advertising expenses,Lou,2014,Accounting,investment alt,new-concept,growth(raw.advertising_expense),same new raw item
+grcapx,Change in capex (two years),Anderson and Garcia-Feijoo,2006,Accounting,investment growth,ready,"growth(raw.capex, 2y)",
+grcapx3y,Change in capex (three years),Anderson and Garcia-Feijoo,2006,Accounting,investment growth,ready,"growth(raw.capex, 3y)",
+Herf,Industry concentration (sales),Hou and Robinson,2006,Other,other,ready-recipe,HHI of raw.revenue within class.membership,
+HerfBE,Industry concentration (equity),Hou and Robinson,2006,Other,other,ready-recipe,HHI of raw.common_equity within industry,
+hire,Employment growth,"Bazdresch, Belo and Lin",2014,Other,investment alt,new-concept,growth(raw.employees),10-K/XBRL employee count; new raw item
+IdioVol3F,Idiosyncratic risk (3 factor),Ang et al.,2006,Price,volatility,new-concept,idio vol vs FF3 (factor.*),market.idio_vol is 1-factor today
+IdioVolAHT,Idiosyncratic risk (AHT),"Ali, Hwang, and Trombley",2003,Price,volatility,ready,market.idio_vol (CAPM residual variant),
+Illiquidity,Amihud's illiquidity,Amihud,2002,Trading,liquidity,ready,market.amihud_illiq,direct hit
+IndIPO,Initial Public Offerings,Ritter,1991,Event,external financing,ready,action.ipo recency indicator,
+IndMom,Industry Momentum,Grinblatt and Moskowitz,1999,Price,momentum,ready-recipe,class.membership-mean momentum,
+IndRetBig,Industry return of big firms,Hou,2007,Price,lead lag,ready-recipe,big-firm return by class.membership (lead-lag),
+IntanBM,Intangible return using BM,Daniel and Titman,2006,Accounting,long term reversal,ready-recipe,residual of 5y return on d(book) - intangible-return recipe,
+IntanCFP,Intangible return using CFtoP,Daniel and Titman,2006,Accounting,long term reversal,ready-recipe,"same, cash-flow-to-price version",
+IntanEP,Intangible return using EP,Daniel and Titman,2006,Accounting,long term reversal,ready-recipe,"same, E/P version",
+IntanSP,Intangible return using Sale2P,Daniel and Titman,2006,Accounting,long term reversal,ready-recipe,"same, S/P version",
+IntMom,Intermediate Momentum,Novy-Marx,2012,Price,momentum,ready,cumulative ret months 7-12 (= MRreversal sign context),
+Investment,Investment to revenue,"Titman, Wei and Xie",2004,Accounting,investment,ready,raw.capex / raw.revenue vs 3y mean,= derived.capex_intensity vs trend
+InvestPPEInv,change in ppe and inv/assets,"Lyandres, Sun and Zhang",2008,Accounting,investment,ready,(d raw.gross_ppe + d raw.inventory) / lag(raw.total_assets),
+InvGrowth,Inventory Growth,Belo and Lin,2012,Accounting,profitability,ready,"growth(raw.inventory, 1y)",
+iomom_cust,Customers momentum,Menzly and Ozbas,2010,Other,lead lag,partial,customer-industry momentum via link.*,same
+iomom_supp,Suppliers momentum,Menzly and Ozbas,2010,Other,lead lag,partial,supplier-industry momentum via link.*,same
+Leverage,Market leverage,Bhandari,1988,Accounting,leverage,ready,raw.total_debt / raw.market_cap,
+LRreversal,Long-run reversal,De Bondt and Thaler,1985,Price,long term reversal,ready,cumulative market.ret months 13-36 (window variant),
+MaxRet,Maximum return over month,"Bali, Cakici, and Whitelaw",2011,Price,volatility,ready,market.max_ret_21d,direct hit
+MeanRankRevGrowth,Revenue Growth Rank,"Lakonishok, Shleifer, Vishny",1994,Accounting,sales growth,ready-recipe,weighted rank of 5y revenue growth,
+Mom12m,Momentum (12 month),Jegadeesh and Titman,1993,Price,momentum,ready,market.momentum_12_1,direct hit
+Mom12mOffSeason,Momentum without the seasonal part,Heston and Sadka,2008,Price,other,ready-recipe,seasonality-purged momentum (monthly ret history),
+Mom6m,Momentum (6 month),Jegadeesh and Titman,1993,Price,momentum,ready,market.momentum_6_1,direct hit
+Mom6mJunk,Junk Stock Momentum,Avramov et al,2007,Price,momentum,new-concept,momentum conditioned on credit.issuer_rating,issuer-ratings feed needed (same as CredRatDG)
+MomOffSeason,Off season long-term reversal,Heston and Sadka,2008,Price,other,ready-recipe,off-season avg monthly ret,
+MomOffSeason06YrPlus,Off season reversal years 6 to 10,Heston and Sadka,2008,Price,other,ready-recipe,years 6-10 variant,
+MomOffSeason16YrPlus,Off season reversal years 16 to 20,Heston and Sadka,2008,Price,other,ready-recipe,years 16-20 variant,
+MomRev,Momentum and LT Reversal,Chan and Ko,2006,Price,momentum,ready-recipe,momentum x LT-reversal double sort,
+MomSeason,Return seasonality years 2 to 5,Heston and Sadka,2008,Price,other,ready-recipe,same-calendar-month avg ret years 2-5,
+MomSeason06YrPlus,Return seasonality years 6 to 10,Heston and Sadka,2008,Price,other,ready-recipe,years 6-10,
+MomSeason11YrPlus,Return seasonality years 11 to 15,Heston and Sadka,2008,Price,other,ready-recipe,years 11-15,
+MomSeason16YrPlus,Return seasonality years 16 to 20,Heston and Sadka,2008,Price,other,ready-recipe,years 16-20,
+MomSeasonShort,Return seasonality last year,Heston and Sadka,2008,Price,other,ready-recipe,same-month ret last year,
+MomVol,Momentum in high volume stocks,Lee and Swaminathan,2000,Price,momentum,ready-recipe,momentum within high market.turnover tercile,
+MS,Mohanram G-score,Mohanram,2005,Accounting,composite accounting,new-concept,indicator.mohanram_g (8 binaries over existing concepts),"new indicator, inputs all exist"
+NetDebtFinance,Net debt financing,"Bradshaw, Richardson, Sloan",2006,Accounting,external financing,ready,(raw.debt_issued - raw.debt_repaid) / avg assets,
+NetDebtPrice,Net debt to price,"Penman, Richardson and Tuna",2007,Accounting,leverage,ready,derived.net_debt / raw.market_cap,
+NetEquityFinance,Net equity financing,"Bradshaw, Richardson, Sloan",2006,Accounting,external financing,ready,(raw.share_issuance - raw.share_repurchases) / avg assets,
+NetPayoutYield,Net Payout Yield,Boudoukh et al.,2007,Accounting,valuation,ready,signal.shareholder_yield variant incl issuance,= div + buyback - issuance / mcap
+NOA,Net Operating Assets,Hirshleifer et al.,2004,Accounting,asset composition,ready,derived.noa,
+OPLeverage,Operating leverage,Novy-Marx,2011,Accounting,other,ready,(raw.cogs + raw.sga) / raw.total_assets,
+OptionVolume1,Option to stock volume,Johnson and So,2012,Options,volume,new-concept,opt.volume_ratio = option volume / stock volume,contract volume is in feed; new concept
+OrderBacklog,Order backlog,"Rajgopal, Shevlin, Venkatachalam",2003,Accounting,sales growth,new-concept,raw.order_backlog / avg assets,same new filing-derived raw as OrderBacklogChg
+OrderBacklogChg,Change in order backlog,Baik and Ahn,2007,Accounting,accruals,new-concept,d(raw.order_backlog),"10-K item; DICT-07 extraction, new filing-derived raw"
+OrgCap,Organizational capital,Eisfeldt and Papanikolaou,2013,Accounting,R&D,ready-recipe,capitalized raw.sga perpetual-inventory recipe / raw.total_assets,
+OScore,O Score,Dichev,1998,Accounting,default risk,ready,indicator.ohlson_o,direct hit
+PatentsRD,Patents to RD expenses,"Hirschleifer, Hsu and Li",2013,Other,profitability alt,blocked-data,patents / raw.rnd,same
+PayoutYield,Payout Yield,Boudoukh et al.,2007,Accounting,valuation,ready,(raw.dividends_paid + raw.share_repurchases) / raw.market_cap,
+PctAcc,Percent Operating Accruals,"Hafzalla, Lundholm, Van Winkle",2011,Accounting,accruals,ready,(raw.net_income - raw.cfo) / abs(raw.net_income),
+PctTotAcc,Percent Total Accruals,"Hafzalla, Lundholm, Van Winkle",2011,Accounting,accruals,ready-recipe,total accruals incl investing/financing rows / abs(NI),uses raw.cfi/raw.cff components
+Price,Price,Blume and Husic,1973,Price,other,ready,log(raw.price_close),
+PriceDelayRsq,Price delay r square,Hou and Moskowitz,2005,Price,lead lag,ready-recipe,weekly ret regression on lagged benchmark (ref.benchmark_map),
+PS,Piotroski F-score,Piotroski,2000,Accounting,composite accounting,ready,indicator.f_score,direct hit
+RD,R&D over market cap,"Chan, Lakonishok and Sougiannis",2001,Accounting,R&D,ready,raw.rnd / raw.market_cap,
+RDAbility,R&D ability,"Cohen, Diether and Malloy",2013,Accounting,other,ready-recipe,firm-level regression of revenue growth on lagged raw.rnd,
+RDcap,R&D capital-to-assets,Li,2011,Accounting,asset composition,ready-recipe,capitalized raw.rnd (5y PIM) / raw.total_assets,
+RDIPO,IPO and no R&D spending,"Gou, Lev and Shi",2006,Event,R&D,ready,action.ipo age join x raw.rnd == 0,
+RDS,Real dirty surplus,Landsman et al.,2011,Accounting,composite accounting,new-concept,real dirty surplus: needs raw.oci components,XBRL OCI tags; new raw item
+RealizedVol,Realized (Total) Volatility,Ang et al.,2006,Price,volatility,ready,market.vol_252d (param: 1m window),
+Recomm_ShortInterest,Analyst Recommendations and Short-Interest,"Drake, Rees and Swanson",2011,Analyst,recommendation,partial,analyst.rating_mean x raw.short_interest,
+ResidualMomentum,Momentum based on FF3 residuals,"Blitz, Huij and Martens",2011,Price,momentum,new-concept,momentum of factor.residual (FF3),needs internal factor.* return series
+retConglomerate,Conglomerate return,Cohen and Lou,2012,Price,lead lag,partial,pseudo-conglomerate return via filing_item.segment_revenue + class returns,segment extraction is tier B/C
+ReturnSkew,Return skewness,"Bali, Engle and Murray",2015,Price,risk,ready,"market.skew_252d (daily, param window)",
+ReturnSkew3F,Idiosyncratic skewness (3F model),"Bali, Engle and Murray",2015,Price,risk,new-concept,skew of factor.residual,needs factor.* series
+REV6,Earnings forecast revisions,"Chan, Jegadeesh and Lakonishok",1996,Analyst,earnings forecast,blocked-data,6m revision aggregate,gated
+RevenueSurprise,Revenue Surprise,Jegadeesh and Livnat,2006,Accounting,sales growth,ready,SUE form over raw.revenue quarterly,
+RIO_Disp,Inst Own and Forecast Dispersion,Nagel,2005,13F,short sale constraints,blocked-data,residual own.inst_pct x est.eps_ntm_std,dispersion leg needs estimates vendor (est.* schema-first)
+RIO_MB,Inst Own and Market to Book,Nagel,2005,13F,short sale constraints,ready-recipe,residual(own.inst_pct | size) x signal.book_to_price,residual-IO = cross-sectional regression recipe
+RIO_Turnover,Inst Own and Turnover,Nagel,2005,13F,short sale constraints,ready-recipe,residual(own.inst_pct) x market.turnover,
+RIO_Volatility,Inst Own and Idio Vol,Nagel,2005,13F,short sale constraints,ready-recipe,residual(own.inst_pct) x market.idio_vol,
+RIVolSpread,Realized minus Implied Vol,Bali and Hovakimian,2009,Options,optionrisk,ready,opt.rv_iv_spread,direct hit
+roaq,Return on assets (qtrly),"Balakrishnan, Bartov and Faurel",2010,Accounting,profitability,ready,derived.roa at FQ basis,
+sfe,Earnings Forecast to price,"Elgers, Lo and Pfeiffer",2001,Analyst,valuation,partial,est.eps_fy1 / raw.price_close,snapshot tier C when wired
+ShareIss1Y,Share issuance (1 year),Pontiff and Woodgate,2008,Accounting,external financing,ready,"growth(raw.shares_outstanding, 1y) adj for actions (AdjustmentChain)",
+ShareIss5Y,Share issuance (5 year),Daniel and Titman,2006,Accounting,external financing,ready,"growth(raw.shares_outstanding, 5y) adj",
+ShareVol,Share Volume,"Datar, Naik and Radcliffe",1998,Trading,volume,ready,raw.volume mean scaled,
+Size,Size,Banz,1981,Price,size,ready,log(raw.market_cap),
+SmileSlope,Put volatility minus call volatility,Yan,2011,Options,optionrisk,ready,opt.skew_25d,direct hit
+std_turn,Share turnover volatility,"Chordia, Subra, Anshuman",2001,Trading,liquidity,ready,"std(market.turnover daily, 1m)",
+STreversal,Short term reversal,Jegadeesh,1990,Price,short-term reversal,ready,market.str_reversal,direct hit
+SurpriseRD,Unexpected R&D increase,"Eberhart, Maxwell and Siddique",2004,Accounting,R&D,ready,unexpected increase in raw.rnd vs trend,
+tang,Tangibility,Hahn and Lee,2009,Accounting,asset composition,ready-recipe,cash + a*receivables + b*inventory + c*ppe weighted liquidation values,Almeida-Campello weights recipe over existing raws
+Tax,Taxable income to income,Lev and Nissim,2004,Accounting,other,ready,taxable income proxy (raw.tax_expense grossed) / raw.net_income,
+TotalAccruals,Total accruals,Richardson et al.,2005,Accounting,investment alt,ready-recipe,d(non-cash assets - liabilities) - d(equity) composite,
+TrendFactor,Trend Factor,"Han, Zhou, Zhu",2016,Price,momentum,ready-recipe,cross-sec regression of ret on MA(price) ensemble,
+VolSD,Volume Variance,"Chordia, Subra, Anshuman",2001,Trading,liquidity,ready,"std(monthly volume, 36m)",
+XFIN,Net external financing,"Bradshaw, Richardson, Sloan",2006,Accounting,external financing,ready,net external financing from raw.cff components / raw.total_assets,
+zerotrade6M,Days with zero trades,Liu,2006,Trading,liquidity,ready,zero-volume days 6m,
+zerotrade1M,Days with zero trades,Liu,2006,Trading,liquidity,ready,zero-volume days 1m,
+zerotrade12M,Days with zero trades,Liu,2006,Trading,liquidity,ready,zero-volume-day count 12m (raw.volume),
+Activism2,Active shareholders,Cremers and Nair,2005,13F,ownership,partial,own.* holder-level activism screen,needs holder identity classification (activist list = adhoc dataset)
+AdExp,Advertising Expense,"Chan, Lakonishok and Sougiannis",2001,Accounting,R&D,new-concept,raw.advertising_expense / raw.market_cap,XBRL AdvertisingExpense; new raw item
+AgeIPO,IPO and age,Ritter,1991,Event,other,ready,action.ipo + ident age join,
+AnalystValue,Analyst Value,Frankel and Lee,1998,Analyst,valuation,blocked-data,forecast-implied value / price,forecast detail gated
+AOP,Analyst Optimism,Frankel and Lee,1998,Analyst,other,blocked-data,analyst value vs price optimism,needs forecast detail
+Beta,CAPM beta,Fama and MacBeth,1973,Price,risk,ready,market.beta_252d,direct hit
+BetaFP,Frazzini-Pedersen Beta,Frazzini and Pedersen,2014,Price,other,ready-recipe,corr x vol-ratio beta (Frazzini-Pedersen) from market.* pieces,
+BidAskSpread,Bid-ask spread,Amihud and Mendelson,1986,Trading,liquidity,new-concept,Corwin-Schultz spread from raw.price_high/low,needs OHLC raws (EODHD has them; DICT-01 gap)
+BrandInvest,Brand capital investment,"Belo, Lin and Vitorino",2014,Accounting,investment alt,new-concept,capitalized raw.advertising_expense recipe,same
+ConsRecomm,Consensus Recommendation,Barber et al.,2001,Analyst,recommendation,partial,analyst.rating_mean,"servable now (EODHD, US)"
+Coskewness,Coskewness,Harvey and Siddique,2000,Price,risk,ready-recipe,monthly coskewness vs benchmark,
+DebtIssuance,Debt Issuance,Spiess and Affleck-Graves,1999,Accounting,external financing,ready,raw.debt_issued > 0 indicator,
+DelDRC,Deferred Revenue,Prakash and Sinha,2013,Accounting,investment alt,ready,d(raw.deferred_revenue) / avg assets,raw exists
+DownRecomm,Down forecast EPS,Barber et al.,2001,Analyst,earnings forecast,partial,analyst.rating_delta_3m < 0,snapshot-diff tier C
+FirmAge,Firm age based on CRSP,Barry and Brown,1984,Other,info proxy,ready,ident listing-age (first_trade_date join),
+FR,Pension Funding Status,Franzoni and Marin,2006,Accounting,composite accounting,ready,raw.pension_liability / raw.market_cap,funded status raw exists
+GrLTNOA,Growth in long term operating assets,"Fairfield, Whisenant and Yohn",2003,Accounting,investment,ready-recipe,growth in long-term NOA (net_ppe + intangibles - ...),
+GrSaleToGrInv,Sales growth over inventory growth,Abarbanell and Bushee,1998,Accounting,sales growth,ready,growth(revenue) - growth(inventory),
+GrSaleToGrOverhead,Sales growth over overhead growth,Abarbanell and Bushee,1998,Accounting,sales growth,ready,growth(revenue) - growth(raw.sga),
+HerfAsset,Industry concentration (assets),Hou and Robinson,2006,Other,other,ready-recipe,HHI of raw.total_assets within industry,
+High52,52 week high,George and Hwang,2004,Price,momentum,ready,market.distance_52w_high,direct hit
+IO_ShortInterest,Inst own among high short interest,Asquith Pathak and Ritter,2005,13F,ownership,ready,own.inst_pct x raw.short_interest interaction,both concepts exist (short_interest tier C)
+MomOffSeason11YrPlus,Off season reversal years 11 to 15,Heston and Sadka,2008,Price,other,ready-recipe,years 11-15 variant,
+MRreversal,Medium-run reversal,De Bondt and Thaler,1985,Price,long term reversal,ready,cumulative ret months 7-12,
+NumEarnIncrease,Earnings streak length,Loh and Warachka,2012,Accounting,earnings growth,ready-recipe,count of consecutive quarterly eps increases,
+OperProf,operating profits / book equity,Fama and French,2006,Accounting,profitability,ready,(raw.gross_profit - raw.sga) / raw.common_equity,
+OperProfRD,Operating profitability R&D adjusted,Ball et al.,2016,Accounting,profitability,ready,op profit + raw.rnd add-back / assets,
+OptionVolume2,Option volume to average,Johnson and So,2012,Options,volume,new-concept,opt.volume_ratio vs its 6m mean,same
+PredictedFE,Predicted Analyst forecast error,Frankel and Lee,1998,Accounting,earnings forecast,blocked-data,regression needs analyst forecast errors history,revision-level estimates gate (DICT-15 §3)
+PriceDelaySlope,Price delay coeff,Hou and Moskowitz,2005,Price,lead lag,ready-recipe,"same, slope form",
+PriceDelayTstat,Price delay SE adjusted,Hou and Moskowitz,2005,Price,lead lag,ready-recipe,"same, t-stat form",
+ProbInformedTrading,Probability of Informed Trading,"Easley, Hvidkjaer and O'Hara",2002,Trading,liquidity,blocked-data,PIN from intraday order flow,microstructure data out of scope v1
+realestate,Real estate holdings,Tuzel,2010,Accounting,asset composition,new-concept,raw.buildings_and_land / raw.gross_ppe,XBRL PP&E components; new raw item
+RoE,net income / book equity,Haugen and Baker,1996,Accounting,profitability,ready,derived.roe,direct hit
+ShareRepurchase,Share repurchases,"Ikenberry, Lakonishok, Vermaelen",1995,Accounting,payout indicator,ready,raw.share_repurchases > 0 indicator,
+ShortInterest,Short Interest,Dechow et al.,2001,Trading,short sale constraints,ready,raw.short_interest / raw.shares_outstanding,tier C source today
+sinAlgo,Sin Stock (selection criteria),Hong and Kacperczyk,2009,Other,other,ready-recipe,class.membership sin-industry rule set,
+skew1,Volatility smirk near the money,"Xing, Zhang and Zhao",2010,Options,optionrisk,ready,OTM-put vs ATM-call smirk (param variant of skew),
+SP,Sales-to-price,"Barbee, Mukherji and Raines",1996,Accounting,valuation,ready,signal.sales_to_price,direct hit
+Spinoff,Spinoffs,"Cusatis, Miles and Woolridge",1993,Event,other,ready,action.spinoff recency,
+UpRecomm,Up Forecast,Barber et al.,2001,Analyst,earnings forecast,partial,analyst.rating_delta_3m > 0,same
+VarCF,Cash-flow  to price variance,Haugen and Baker,1996,Accounting,cash flow risk,ready,"var(raw.cfo/raw.market_cap, 5y)",
+VolMkt,Volume to market equity,Haugen and Baker,1996,Trading,volume,ready,dollar volume / raw.market_cap,
+VolumeTrend,Volume Trend,Haugen and Baker,1996,Trading,volume,ready-recipe,slope(volume trend) / mean,

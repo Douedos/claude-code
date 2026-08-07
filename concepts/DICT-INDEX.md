@@ -1,5 +1,5 @@
-# Concept Dictionary v1.3 · Index
-~400 concepts across 21 files + 19 worked artifacts. DICT-00 is the contract (schema, classes, validation taxonomy V1–V11); 01–08 are content; 09–14 are the abstraction layer itself — everything between a vendor's bytes and a served concept; 15–19 are the EODHD full-surface expansion; 20–21 are the ad-hoc/long-tail track (separate entry gate, same serving contract) with commodity/trade/product domains. Additive throughout: no prior concept changed.
+# Concept Dictionary v1.4 · Index
+~420 concepts across 22 files + 19 worked artifacts, cross-audited against the OSAP alpha catalog (76% of its 212 published predictors expressible; 86% after v1.4 additions). DICT-00 is the contract (schema, classes, validation taxonomy V1–V11); 01–08 are content; 09–14 are the abstraction layer itself — everything between a vendor's bytes and a served concept; 15–19 are the EODHD full-surface expansion; 20–21 are the ad-hoc/long-tail track (separate entry gate, same serving contract) with commodity/trade/product domains. Additive throughout: no prior concept changed.
 
 | File | Contents | ~n |
 |---|---|---|
@@ -25,6 +25,7 @@
 | 19 | Credit, rates, sovereign & country (sov/credit/rates/country; macro release events & surprise indices) | 25 |
 | 20 | Ad-hoc & long-tail framework: subject model beyond entities, link.exposure, dataset manifests, GenericTableAdapter, sandbox→probation→graduated lifecycle | — |
 | 21 | Component/commodity prices, world trade, product data (cmdty/trade/product; incl. worked cmdty.trend_63d for DRAM spot) | 40 |
+| 22 | OSAP alpha-catalog mapping: 212 predictors dispositioned (per-predictor map in mappings/osap_map.csv), recipe primitives, factor.* internal factor series, acquisition roadmap | 18 |
 
 Integration: DAL fundamentals()/macro()/text() serve concept_ids under the DICT-13 contract; adapters bind via DICT-09 maps under the DICT-14 SPI; identity joins via DICT-10; adjusted returns only via DICT-11 chains; universes/calendars/classification via DICT-12; validators run at ingest (B cells) with V6 delegated to X2 sampling; E1 features, C2 recipe inputs, D11 compiled factors and DICT-05 indicators all reference concepts, never vendor fields.
 Governance: additive-only like the vocabulary; quirks ledger versioned with the map; primary-vendor per concept in config; disagreement -> data.quality claim, never silent averaging.

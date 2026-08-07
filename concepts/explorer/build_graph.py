@@ -20,7 +20,7 @@ NAMESPACES = {
     "macro", "event", "est", "ident", "action", "ref", "fx", "class", "universe",
     "meta", "own", "insider", "analyst", "esg", "news", "opt", "sov", "credit",
     "rates", "country", "cmdty", "trade", "freight", "product", "link", "adhoc",
-    "dal", "data",
+    "dal", "data", "factor",
 }
 
 FILE_META = {
@@ -45,6 +45,7 @@ FILE_META = {
     "DICT-19": ("Credit, rates, sovereign, country", "content"),
     "DICT-20": ("Ad-hoc & long-tail framework", "layer"),
     "DICT-21": ("Commodities, trade, product", "content"),
+    "DICT-22": ("OSAP alpha-catalog mapping", "vendor"),
     "DICT-WORKED": ("Worked examples", "content"),
 }
 
@@ -58,7 +59,7 @@ NS_TIER = {
     "ident": "reference", "ref": "reference", "class": "reference",
     "universe": "reference", "link": "reference",
     "own": "ownership", "insider": "ownership", "analyst": "ownership", "esg": "ownership",
-    "news": "news", "meta": "meta", "data": "meta", "dal": "meta",
+    "news": "news", "meta": "meta", "data": "meta", "dal": "meta", "factor": "market",
 }
 
 
