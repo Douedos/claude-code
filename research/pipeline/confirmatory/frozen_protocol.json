@@ -1,0 +1,60 @@
+{
+  "version": "1.0",
+  "frozen_utc": "2026-08-25",
+  "status": "FROZEN - read-only after any 2026 outcome access",
+  "treatment": {
+    "primary": "ais_ms_h1_2025 from frozen_ais_treatment.csv (jackknife residual of logit Microsoft H1-2025 diffusion on log GDP pc, log population, M49 region FE; estimated 2026-08-25)",
+    "consistency_requirement": "ais_aei_aug2025 (same construction on Anthropic AEI v3 usage per capita)",
+    "rule": "values may NOT be re-estimated with newer covariates or adoption data"
+  },
+  "outcomes": [
+    {
+      "id": "P1",
+      "name": "Eurostat nama_10_lp_a21, RLPR_HW, PCH_PRE, years 2026 and 2027",
+      "vintage_rule": "first Eurostat release covering each year; retrieval manifested with hash"
+    },
+    {
+      "id": "P2",
+      "name": "IMF WEO real GDP growth surprise for 2026",
+      "construction": "actual (first spring vintage covering 2026, expected April 2027) minus the October 2024 forecast for 2026 (S12, sha256 in manifest)"
+    }
+  ],
+  "design": {
+    "estimator": "year-specific cross-section with country FE + sector FE; coefficient on AIS x Exposed",
+    "exposed": [
+      "J",
+      "K"
+    ],
+    "controls": [
+      "C",
+      "F",
+      "G-I"
+    ],
+    "m_variant": "sensitivity only",
+    "primary_statistic": "beta_post = mean(beta_2026, beta_2027); if only 2026 available, beta_2026",
+    "co_primary_robustness": "detrended beta_post: beta_post minus the 2016-2023 linear pre-trend prediction (T1 showed a declining path; sign consistency with the raw beta_post is required)",
+    "inference": "10,000 country-label permutations, seed 20270101 (declared now, unused so far); wild cluster bootstrap (5,000, Rademacher, by country) secondary; LOCO mandatory"
+  },
+  "confirmatory_family": {
+    "members": [
+      "beta_post with ais_ms",
+      "beta_post with ais_aei",
+      "W: 2026 growth surprise on ais_ms"
+    ],
+    "adjustment": "max-statistic permutation across the three members",
+    "alpha": 0.05
+  },
+  "decision_rules": {
+    "promote_to_provisional": [
+      "search-adjusted p < 0.05 within the confirmatory family",
+      "sign-consistent between ais_ms and ais_aei treatments",
+      "sign unchanged under leave-one-country-out",
+      "negative-control sectors show no comparable effect",
+      "sign consistent between raw and detrended beta_post"
+    ],
+    "informative_null": "if |beta_post| CI excludes the MDE-scaled plausible band (0.3-1.0 pp per sd AIS), report as evidence against short-horizon effects of that size",
+    "otherwise": "report as still-underpowered; continue to 2028 vintage"
+  },
+  "power_note": "pooling 2026+2027 approximately halves the single-year MDE of 2.4 pp per sd(AIS)",
+  "code": "exploration/eps_analysis.py and exploration/event_study.py at the git commit recorded alongside this file; any re-implementation must reproduce the frozen 2025 betas before running 2026+"
+}
