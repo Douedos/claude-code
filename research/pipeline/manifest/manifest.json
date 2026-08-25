@@ -146,24 +146,6 @@
     "detail": "ec.europa.eu blocked by egress policy"
   },
   {
-    "source_id": "S11",
-    "name": "IMF WEO April 2026",
-    "url": "https://www.imf.org/external/datamapper/datasets/WEO",
-    "use_class": "CORE MACRO",
-    "retrieved_utc": "2026-08-25T04:25:12.618693+00:00",
-    "status": "blocked_by_egress",
-    "detail": "imf.org blocked by egress policy"
-  },
-  {
-    "source_id": "S12",
-    "name": "IMF WEO Database October 2024 (forecast baseline)",
-    "url": "https://www.imf.org/en/publications/weo/weo-database/2024/october",
-    "use_class": "CORE MACRO",
-    "retrieved_utc": "2026-08-25T04:25:12.618693+00:00",
-    "status": "blocked_by_egress",
-    "detail": "imf.org blocked by egress policy"
-  },
-  {
     "source_id": "S13",
     "name": "ILO ISCO-08 Vol I",
     "url": "https://webapps.ilo.org/ilostat-files/ISCO/newdocs-08-2021/ISCO-08/ISCO-08%20EN%20Vol%201.pdf",
@@ -227,5 +209,31 @@
     "sha256": "cc57723797b61a7e6058409b37e994f38197ee626458ddb62bfc390379a5bd95",
     "license": "CC-BY (Anthropic Economic Index)",
     "channel": "community GitHub mirror duyet/economic-index @ 2b3a67d0e34d of huggingface.co/datasets/Anthropic/EconomicIndex release_2025_09_15 (huggingface.co and anthropic.com blocked by egress; mirror hash recorded)"
+  },
+  {
+    "source_id": "S12",
+    "name": "IMF WEO Database October 2024 full country dataset (pre-AI forecast baseline)",
+    "url": "user upload (see channel)",
+    "use_class": "CORE MACRO",
+    "retrieved_utc": "2026-08-25T14:35:53.144512+00:00",
+    "status": "retrieved",
+    "local_file": "raw/S12_WEOOct2024all.tsv",
+    "bytes": 20297276,
+    "sha256": "46d492250b59b92e70668d2e1f4dec74ea60233a086fbe2070a70749b890ad8d",
+    "license": "IMF terms of use",
+    "channel": "user-supplied download from imf.org/en/publications/weo/weo-database/2024/october (imf.org egress-blocked; UTF-16 TSV despite .xls name)"
+  },
+  {
+    "source_id": "S11",
+    "name": "IMF WEO April 2026 vintage, IMF data portal export (WEO 9.0.0, published 2026-04-14)",
+    "url": "user upload (see channel)",
+    "use_class": "CORE MACRO",
+    "retrieved_utc": "2026-08-25T14:35:53.144512+00:00",
+    "status": "retrieved",
+    "local_file": "raw/S11_WEO_Apr2026_portal.csv",
+    "bytes": 8464348,
+    "sha256": "eb2cfa088e5a168cc6593f5cf247dc426ed0246d2abb0a5d2c2208fe4df07855",
+    "license": "IMF terms of use",
+    "channel": "user-supplied export from IMF data portal (data.imf.org; imf.org egress-blocked)"
   }
 ]
