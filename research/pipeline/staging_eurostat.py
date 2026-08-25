@@ -6,7 +6,7 @@ Primary outcome per frozen design E1: real labour productivity per hour worked
 dropped; Eurostat 2-letter geo codes mapped to ISO3 (EL->GRC, UK->GBR).
 Cross-validated against the independently downloaded default-view spreadsheet.
 """
-import csv, json, os
+import csv, gzip, json, os
 
 BASE = os.path.dirname(os.path.abspath(__file__))
 GEO = {"AT":"AUT","BE":"BEL","BG":"BGR","CY":"CYP","CZ":"CZE","DE":"DEU","DK":"DNK",
@@ -18,8 +18,13 @@ GEO = {"AT":"AUT","BE":"BEL","BG":"BGR","CY":"CYP","CZ":"CZE","DE":"DEU","DK":"D
 SECTORS = {"J": "exposed", "K": "exposed", "M": "exposed",
            "C": "control", "F": "control", "G-I": "control"}
 
+# raw file is stored gzip-compressed in git (LFS unavailable on public forks);
+# an uncompressed local copy is used when present
 rows_out, dropped_geo = [], set()
-with open(os.path.join(BASE, "raw/S08_nama_10_lp_a21_linear.csv")) as f:
+_plain = os.path.join(BASE, "raw/S08_nama_10_lp_a21_linear.csv")
+_opener = (lambda: open(_plain)) if os.path.exists(_plain) else \
+          (lambda: gzip.open(_plain + ".gz", "rt"))
+with _opener() as f:
     for r in csv.DictReader(f):
         if r["na_item"] != "RLPR_HW" or r["unit"] != "PCH_PRE": continue
         if r["nace_r2"] not in SECTORS: continue

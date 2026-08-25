@@ -234,10 +234,13 @@
     "use_class": "CORE OUTCOME",
     "retrieved_utc": "2026-08-25T15:14:34.205854+00:00",
     "status": "retrieved",
-    "local_file": "raw/S08_nama_10_lp_a21_linear.csv",
+    "local_file": "raw/S08_nama_10_lp_a21_linear.csv.gz",
     "bytes": 79860740,
     "sha256": "a38fe552efacd757b75a2d2459bb83a6bb0bb412209fe739c889d7ee0487b35c",
     "license": "Eurostat reuse policy (CC-BY 4.0)",
-    "channel": "user-supplied ZIP; dataset vintage: last update 2026-08-24 per accompanying default-view export"
+    "channel": "user-supplied ZIP; dataset vintage: last update 2026-08-24 per accompanying default-view export",
+    "bytes_compressed": 2157491,
+    "sha256_gzip": "dbf761f1b6effb26f77b84a4f9267ef6713e0a6fcbe079fd30c51f007cad178c",
+    "storage_note": "stored gzip-compressed in git: Git LFS unavailable (GitHub rejects LFS objects on public forks); sha256 field is the UNCOMPRESSED file hash"
   }
 ]
