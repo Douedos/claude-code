@@ -48,9 +48,9 @@ def T(rows, widths, header=True, fs=7.8):
 story = []
 P = lambda txt, st=BODY: story.append(Paragraph(txt, st))
 story.append(Paragraph("AI Integration and Economic Effects", TITLE))
-story.append(Paragraph("Research Note 1 (v1.3) — Canonical pipeline executed end-to-end: retrieval audit, validated adoption panel, "
+story.append(Paragraph("Research Note 1 (v2.0) — Canonical pipeline executed end-to-end: retrieval audit, validated adoption panel, "
                        "AI Integration Surprise, diffusion dynamics, cross-provider test, the priority-1 outcome regression, "
-                       "and the 2016-2025 event study · 25 August 2026 · Evidence grade: EXPLORATORY", SUB))
+                       "the 2016-2025 event study, and the Bayesian layer · 25 August 2026 · Evidence grade: EXPLORATORY", SUB))
 
 P("<b>Summary.</b> This note reports the first end-to-end execution of the research framework frozen in the design "
   "checklist: source retrieval with manifests and fingerprints, validation against published values, canonical panel "
@@ -356,7 +356,78 @@ P("<b>Grade: Exploratory</b> (reproducible from immutable raw data; plausible me
   "the dynamic findings concern the <i>treatment</i> variable's evolution, not economic outcomes. The divergence "
   "finding's S-curve caveat (Section 5) is part of the claim, not a footnote to it.")
 
-story.append(Paragraph("9. Provenance", H1))
+bz = json.load(open(os.path.join(BASE, "exploration/bayes_results.json")))
+BF = bz["bayes_factors"]
+story.append(Paragraph("9. The Bayesian architecture, computed (v2.0)", H1))
+P("The research skeleton framed this project as <i>sequential Bayesian model discovery</i> (its section 3): a "
+  "structured hypothesis space, each test updating which mechanism deserves the next test, with the travel "
+  "distance penalized. Until now the note ran that program in frequentist dress (permutations, max-stat "
+  "corrections). This section supplies the missing layer explicitly — and anchors it in what is done usually, "
+  "because every component is a named, standard technique:")
+P("<b>(i) Box's loop / Bayesian workflow.</b> The iterate-criticize-revise structure of the H0-H7 ledger is exactly "
+  "George Box's model-criticism loop (Box 1980), modernized as the 'Bayesian workflow' of Gelman et al. (2020) and "
+  "Blei's formulation for probabilistic machine learning. The discovery log is not an eccentricity; it is the "
+  "workflow's audit trail. <b>(ii) Bayesian model averaging in cross-country growth empirics.</b> Treating the "
+  "specification space itself as the object of inference is the canonical Bayesian answer to specification search "
+  "in precisely this literature: Fernandez-Ley-Steel (2001) and Sala-i-Martin, Doppelhofer & Miller's BACE (2004) "
+  "put priors over millions of growth-regression specifications. Our machine-readable search ledger defines the "
+  "same model space; the max-stat permutation p_search is its frequentist twin. <b>(iii) Bayes factors</b> "
+  "(Kass & Raftery 1995), computed below via Gaussian marginal likelihoods (equivalent to Savage-Dickey here). "
+  "<b>(iv) Pre-study odds</b> (Ioannidis 2005): the evidence-grading ladder, quantified — a finding's posterior "
+  "probability depends on the prior plausibility of its family, not only on its p-value. <b>(v) Empirical-Bayes "
+  "multiplicity control</b> (Efron; Storey): the search-adjustment machinery is the frequentist face of shrinking "
+  "many candidate effects toward a null-heavy prior. <b>(vi) Sequential design</b> (Lindley's expected information): "
+  "choosing the next branch by expected information gain — which the table below now makes explicit.")
+P("<b>Declared priors.</b> For each headline estimate, a point null is compared with zero-centered effect-size "
+  "priors at three scales declared before computation (skeptical / moderate / optimistic; e.g. for E1 the "
+  "skeptical scale is the J-curve prior of near-zero contemporaneous effects, the optimistic scale is calibrated "
+  "to the St. Louis Fed cumulative differential). Pre-study P(effect): 0.25 for outcome families, 0.50 for "
+  "diffusion dynamics (S-curve theory predicts divergence) and provider agreement. BF01 > 1 favors the null; "
+  "BF ~ 1 means the data carry no information at that scale.")
+rows = [["Estimate", "b (SE)", "BF01 skeptical", "BF01 moderate", "BF01 optimistic", "P(effect): prior -> post (moderate)"]]
+def bfr(k):
+    e = BF[k]; sc = list(e["scales"].values())
+    return [e["label"], "%.2f (%.2f)" % (e["estimate"], e["se"]),
+            "%.2f" % sc[0]["bf01"], "%.2f" % sc[1]["bf01"],
+            ("%.2e" % sc[2]["bf01"]) if sc[2]["bf01"] < 0.01 else "%.2f" % sc[2]["bf01"],
+            "%.2f -> %.2f" % (e["prior_p_effect"], sc[1]["posterior_p_effect"])]
+for k in ("E1", "W1", "B1", "D2"): rows.append(bfr(k))
+story.append(T(rows, [5.3*cm, 2.3*cm, 2.2*cm, 2.2*cm, 2.2*cm, 2.8*cm], fs=7.0))
+story.append(Spacer(1, 6))
+P("<b>Reading, in posterior terms.</b> <b>B1 (diffusion divergence) is decisive:</b> BF10 on the order of 10^18; "
+  "posterior probability ~1 at every scale — the one claim this project can now assert with Bayesian confidence. "
+  "<b>E1 (the priority-1 productivity test) carried almost no information:</b> BF01 lies between %.2f and %.2f at "
+  "every prior scale, so P(effect) moves only from 0.25 to ~%.2f. This is the precise Bayesian statement of the "
+  "h = 0 problem — the 2025 test neither found an effect nor ruled one out, <i>including</i> large immediate "
+  "effects (the standard error is too wide). The frequentist 'null' of Section 6 is, in Bayesian terms, a "
+  "near-flat likelihood: nobody should update on it, in either direction. <b>W1 (macro growth surprises) is the "
+  "only outcome test that genuinely moved beliefs:</b> with its tighter standard error, moderate-to-large AIS "
+  "effects on 2025 growth surprises are down-weighted (BF01 = %.1f at the moderate scale, %.1f at the optimistic "
+  "scale; P(effect) 0.25 -> %.2f / %.2f). <b>D2 (cross-provider agreement): barely worth a mention</b> in "
+  "Kass-Raftery's own scale (BF10 < 2): weak support for partial agreement, insufficient to treat single-provider "
+  "AIS as measuring a common construct — the Bayesian restatement of the reconciliation mandate. The expected-"
+  "information ranking for the next test follows directly: the 2026-2027 productivity vintages (turning h = 0 "
+  "into h = 1-2 for a frozen treatment) dominate every alternative, followed by a second AEI vintage window "
+  "(shrinking D2's measurement noise), followed by shock-interaction designs (H6, still untouched)." % (
+   min(s["bf01"] for s in BF["E1"]["scales"].values()), max(s["bf01"] for s in BF["E1"]["scales"].values()),
+   list(BF["E1"]["scales"].values())[1]["posterior_p_effect"],
+   list(BF["W1"]["scales"].values())[1]["bf01"], list(BF["W1"]["scales"].values())[2]["bf01"],
+   list(BF["W1"]["scales"].values())[1]["posterior_p_effect"], list(BF["W1"]["scales"].values())[2]["posterior_p_effect"]))
+rows = [["Hypothesis (ledger)", "Prior", "Executed evidence", "Posterior direction"]]
+for hrow in bz["hypothesis_ledger_update"]:
+    rows.append([hrow["h"], hrow["prior"], hrow["evidence"], hrow["posterior"]])
+story.append(T(rows, [4.6*cm, 2.8*cm, 6.0*cm, 3.6*cm], fs=6.8))
+story.append(Spacer(1, 6))
+P("<b>Is this a known technique?</b> Yes — as an ensemble. Each layer is textbook (Box's loop, BMA/BACE, Bayes "
+  "factors, pre-study odds, empirical-Bayes shrinkage, sequential design); the packaging — a versioned search "
+  "ledger defining the model space, frequentist search-adjusted inference running alongside Bayesian updating, "
+  "and a prospectively frozen confirmation set — is closest to what the credibility-revolution literature calls a "
+  "<i>registered-report workflow with specification-curve analysis</i>, executed in Bayesian bookkeeping. The "
+  "combination is unusual in applied cross-country work mainly in being explicit; none of its parts is novel, "
+  "which is a feature: every step has a citation, and every posterior in the table above can be recomputed from "
+  "the ledger by anyone who disagrees with the priors.")
+
+story.append(Paragraph("10. Provenance", H1))
 rows = [["Artifact", "Bytes", "SHA-256 (first 16)"]]
 for m in retrieved:
     rows.append([m["source_id"] + "  " + m["name"][:58], str(m["bytes"]), m["sha256"][:16]])

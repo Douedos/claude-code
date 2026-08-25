@@ -1,0 +1,153 @@
+{
+  "bayes_factors": {
+    "E1": {
+      "label": "EPS 2025 ~ AIS x exposure (pp per logit-AIS)",
+      "estimate": -2.6364732092346332,
+      "se": 2.0129397733348124,
+      "prior_p_effect": 0.25,
+      "scales": {
+        "0.5": {
+          "bf01": 0.9802859482275941,
+          "bf10": 1.0201105114360254,
+          "posterior_p_effect": 0.25375185794870875
+        },
+        "1.5": {
+          "bf01": 0.9181355413753172,
+          "bf10": 1.0891638052722088,
+          "posterior_p_effect": 0.266353674525813
+        },
+        "3.0": {
+          "bf01": 0.993436445659059,
+          "bf10": 1.0066069192142297,
+          "posterior_p_effect": 0.2512367545682879
+        }
+      }
+    },
+    "W1": {
+      "label": "GDP growth surprise 2025 ~ AIS (pp per logit-AIS)",
+      "estimate": -0.2729266889167952,
+      "se": 0.4346563792966192,
+      "prior_p_effect": 0.25,
+      "scales": {
+        "0.25": {
+          "bf01": 1.098440724082253,
+          "bf10": 0.9103813961700117,
+          "posterior_p_effect": 0.2328114073634036
+        },
+        "0.75": {
+          "bf01": 1.7207076004808934,
+          "bf10": 0.5811562636908942,
+          "posterior_p_effect": 0.16228173832658435
+        },
+        "1.5": {
+          "bf01": 2.995500932180608,
+          "bf10": 0.3338339805730052,
+          "posterior_p_effect": 0.1001351544552999
+        }
+      }
+    },
+    "B1": {
+      "label": "Diffusion divergence (pp gained per pp initial)",
+      "estimate": 0.13575552350528125,
+      "se": 0.014173625560262077,
+      "prior_p_effect": 0.5,
+      "scales": {
+        "0.05": {
+          "bf01": 1.3339801848043528e-18,
+          "bf10": 7.496363224815548e+17,
+          "posterior_p_effect": 1.0
+        },
+        "0.15": {
+          "bf01": 1.9142572487312126e-19,
+          "bf10": 5.223958277618169e+18,
+          "posterior_p_effect": 1.0
+        },
+        "0.3": {
+          "bf01": 2.8161877810904514e-19,
+          "bf10": 3.550899576777482e+18,
+          "posterior_p_effect": 1.0
+        }
+      }
+    },
+    "D2": {
+      "label": "Cross-provider AIS agreement (Fisher z)",
+      "estimate": 0.18003797538366204,
+      "se": 0.09245003270420485,
+      "prior_p_effect": 0.5,
+      "scales": {
+        "0.1": {
+          "bf01": 0.529929421455272,
+          "bf10": 1.8870437449082145,
+          "posterior_p_effect": 0.6536249228077449
+        },
+        "0.3": {
+          "bf01": 0.6009366507877761,
+          "bf10": 1.664068914234281,
+          "posterior_p_effect": 0.6246343348488699
+        },
+        "0.6": {
+          "bf01": 1.030216080776507,
+          "bf10": 0.9706701522716165,
+          "posterior_p_effect": 0.4925584076831492
+        }
+      }
+    }
+  },
+  "hypothesis_ledger_update": [
+    {
+      "h": "H0/H1 (AI -> stock returns, raw or normalized)",
+      "prior": "low (demoted by skeleton)",
+      "evidence": "not executed (market data unavailable)",
+      "posterior": "unchanged (low)"
+    },
+    {
+      "h": "H2 (AI level -> absolute GDP growth)",
+      "prior": "low",
+      "evidence": "W-branch null at h=0 consistent with it",
+      "posterior": "slightly lower"
+    },
+    {
+      "h": "H3 (AI -> GDP growth surprise)",
+      "prior": "medium-low",
+      "evidence": "W1: BF01=1.7 at moderate scale - mildly favors null at h=0",
+      "posterior": "slightly lower at short horizons; untested at h>=1"
+    },
+    {
+      "h": "H4 (AI -> knowledge-sector productivity)",
+      "prior": "medium (priority 1 as H7 form)",
+      "evidence": "E1: BF01=0.98 vs J-curve prior, 0.99 vs large-immediate prior - BF ~ 1 at every scale",
+      "posterior": "essentially unchanged: the h=0 test carried almost no information either way (SE too large even to rule out large immediate effects)"
+    },
+    {
+      "h": "H5 (frozen exposure -> monthly services output)",
+      "prior": "medium-low",
+      "evidence": "not executed (sts_sepr_m not retrieved)",
+      "posterior": "unchanged"
+    },
+    {
+      "h": "H6 (shock-interaction / temporal rotation)",
+      "prior": "medium",
+      "evidence": "not executed (no identified-shock series yet)",
+      "posterior": "unchanged"
+    },
+    {
+      "h": "H7 (AIS -> productivity surprise; priority 1)",
+      "prior": "medium",
+      "evidence": "h=0 test uninformative by design (BF ~ 1 at J-curve scale); event study shows single-year noise floor; AEI variant carries pre-ChatGPT selection",
+      "posterior": "essentially unchanged - the informative test is 2026-27 vintages"
+    },
+    {
+      "h": "NEW: absolute diffusion divergence (levels)",
+      "prior": "medium (S-curve predicts it)",
+      "evidence": "B1: BF10=5223958277618168832 at moderate scale",
+      "posterior": "~1.000 (near-certain at this scale)"
+    },
+    {
+      "h": "NEW: single-provider AIS = national AI integration",
+      "prior": "implicit high (v1.0 assumption)",
+      "evidence": "D2: BF01=0.60 on agreement; AEI pre-trend p=0.007 shows provider-specific selection",
+      "posterior": "demoted - reconciliation now core (C2)"
+    }
+  ],
+  "method": "Gaussian marginal likelihood BF (Kass-Raftery); posteriors via pre-study odds (Ioannidis-style)"
+}
