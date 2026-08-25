@@ -35,12 +35,17 @@ TITLE = ParagraphStyle("Titlex", parent=styles["Title"], fontSize=15.5, spaceAft
 SUB = ParagraphStyle("Subx", parent=styles["Normal"], fontSize=9.5, textColor=colors.HexColor("#555555"), spaceAfter=8, alignment=1)
 
 def T(rows, widths, fs=7.4):
-    t = Table(rows, colWidths=widths)
+    # wrap every cell in a Paragraph so long text wraps inside its column
+    # instead of overprinting neighbours (plain strings never wrap in reportlab)
+    cell = ParagraphStyle("cell", parent=styles["Normal"], fontSize=fs, leading=fs + 1.8)
+    cellh = ParagraphStyle("cellh", parent=cell, fontName="Helvetica-Bold")
+    wrapped = [[Paragraph(str(c), cellh if ri == 0 else cell) for c in row]
+               for ri, row in enumerate(rows)]
+    t = Table(wrapped, colWidths=widths)
     t.setStyle(TableStyle([
-        ("FONTSIZE", (0, 0), (-1, -1), fs), ("VALIGN", (0, 0), (-1, -1), "TOP"),
+        ("VALIGN", (0, 0), (-1, -1), "TOP"),
         ("GRID", (0, 0), (-1, -1), 0.4, colors.HexColor("#bbbbbb")),
         ("BACKGROUND", (0, 0), (-1, 0), colors.HexColor("#e8eef7")),
-        ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),
         ("TOPPADDING", (0, 0), (-1, -1), 2.4), ("BOTTOMPADDING", (0, 0), (-1, -1), 2.4)]))
     return t
 

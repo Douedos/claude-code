@@ -219,7 +219,8 @@ ax.set_yticks(range(len(rows_fig))); ax.set_yticklabels([r[0] for r in rows_fig]
 ax.set_xticks(YEARS)
 ax.axvline(2024.5, color="#222", lw=1.0, ls=":")
 ax.set_title("Trace map: yearly AIS x exposure coefficients by sector split\n"
-             "(cell = beta; solid box = |z|>=1.96 unadjusted trace; dashed = weak trace; red = positive, blue = negative)")
+             "cell = beta · solid box = trace (|z|>=1.96, unadj.) · dashed = weak\n"
+             "red = positive, blue = negative", fontsize=8.6)
 ax.invert_yaxis()
 fig.tight_layout(); fig.savefig(os.path.join(BASE, "reports/fig6_trace_map.png"), dpi=150)
 

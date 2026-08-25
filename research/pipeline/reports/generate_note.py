@@ -35,13 +35,17 @@ TITLE = ParagraphStyle("Titlex", parent=styles["Title"], fontSize=17, spaceAfter
 SUB = ParagraphStyle("Subx", parent=styles["Normal"], fontSize=10, textColor=colors.HexColor("#555555"), spaceAfter=10)
 
 def T(rows, widths, header=True, fs=7.8):
-    t = Table(rows, colWidths=widths)
-    style = [("FONTSIZE", (0,0), (-1,-1), fs), ("VALIGN", (0,0), (-1,-1), "TOP"),
+    # wrap cells in Paragraphs so long text wraps inside its column
+    cell = ParagraphStyle("cellg", parent=styles["Normal"], fontSize=fs, leading=fs + 1.8)
+    cellh = ParagraphStyle("cellgh", parent=cell, fontName="Helvetica-Bold")
+    wrapped = [[Paragraph(str(c), cellh if (header and ri == 0) else cell) for c in row]
+               for ri, row in enumerate(rows)]
+    t = Table(wrapped, colWidths=widths)
+    style = [("VALIGN", (0,0), (-1,-1), "TOP"),
              ("GRID", (0,0), (-1,-1), 0.4, colors.HexColor("#bbbbbb")),
              ("TOPPADDING", (0,0), (-1,-1), 2.5), ("BOTTOMPADDING", (0,0), (-1,-1), 2.5)]
     if header:
-        style += [("BACKGROUND", (0,0), (-1,0), colors.HexColor("#e8eef7")),
-                  ("FONTNAME", (0,0), (-1,0), "Helvetica-Bold")]
+        style += [("BACKGROUND", (0,0), (-1,0), colors.HexColor("#e8eef7"))]
     t.setStyle(TableStyle(style))
     return t
 
