@@ -48,8 +48,9 @@ def T(rows, widths, header=True, fs=7.8):
 story = []
 P = lambda txt, st=BODY: story.append(Paragraph(txt, st))
 story.append(Paragraph("AI Integration and Economic Effects", TITLE))
-story.append(Paragraph("Research Note 1 — First execution of the canonical pipeline: retrieval audit, validated adoption panel, "
-                       "AI Integration Surprise, and diffusion dynamics · 25 August 2026 · Evidence grade: EXPLORATORY", SUB))
+story.append(Paragraph("Research Note 1 (v1.1) — First execution of the canonical pipeline: retrieval audit, validated adoption panel, "
+                       "AI Integration Surprise, diffusion dynamics, and the cross-provider test · 25 August 2026 · "
+                       "Evidence grade: EXPLORATORY", SUB))
 
 P("<b>Summary.</b> This note reports the first end-to-end execution of the research framework frozen in the design "
   "checklist: source retrieval with manifests and fingerprints, validation against published values, canonical panel "
@@ -64,7 +65,10 @@ P("<b>Summary.</b> This note reports the first end-to-end execution of the resea
   "each percentage point of initial adoption predicts %.2f pp of additional growth over the window (search-adjusted "
   "permutation p=%.4f across the four-spec dynamic family; LOCO range [%.3f, %.3f]). The economic-outcome (EPS) "
   "regression — the design's priority-1 test — could <b>not</b> be run: every outcome source is unreachable from this "
-  "execution environment, an audit result reported in Section 2." % (
+  "execution environment, an audit result reported in Section 2. <b>v1.1 addendum:</b> a second retrieval round "
+  "recovered the Anthropic Economic Index v3 country data via a mirrored release, making the cross-provider "
+  "consistency criterion (H4) testable — with a disciplined negative outcome: adoption <i>levels</i> agree strongly "
+  "across providers, but income-adjusted surprises largely do not (Section 6b)." % (
    n_checks, "eight", A4m["coef_lgdp"], A4m["r2"], A4m["n"],
    C["mean_ais_restricted"], C["mean_ais_rest"], C["perm_p"],
    B["B1"]["coef_init"], MS["p_search"], B["B1"]["loco"]["min"], B["B1"]["loco"]["max"]))
@@ -90,7 +94,8 @@ rows.append(["Retrieved, first-party", "S01 (Q1'26 + H1'25 report PDFs), S02 (co
 rows.append(["Retrieved, mirror", "S15 GDP (Frictionless/World Bank), population, ISO3/region concordance",
              "Structural covariates for AIS residual model"])
 rows.append(["Blocked by egress", ", ".join(m["source_id"] for m in blocked),
-             "No Anthropic/OpenAI cross-provider check (H4 criterion untestable); no Eurostat/IMF outcomes (EPS branch blocked)"])
+             "No Eurostat/IMF outcomes (EPS branch blocked); no OpenAI/OpenRouter measures. S04 (Anthropic AEI) was "
+             "later recovered via a hash-recorded community mirror (v1.1, Section 6b)"])
 story.append(T(rows, [3.2*cm, 6.6*cm, 7.2*cm]))
 story.append(Spacer(1, 6))
 P("Consequences for the frozen design: the cross-provider consistency requirement for a Provisional grade cannot be met "
@@ -207,6 +212,40 @@ P("The priority-1 test remains: EPS on jackknifed AIS interacted with sector cog
   "Timing note: with adoption first measured in H1 2025, outcome data through 2023 (the mirror vintage available here) "
   "precedes treatment measurement and was correctly not used — the no-look-ahead assertion in the validation layer "
   "would have rejected it.")
+
+cp = json.load(open(os.path.join(BASE, "exploration/crossprovider_results.json")))
+story.append(Paragraph("6b. Addendum (v1.1): the second provider retrieved — and the H4 criterion bites", H1))
+P("A second retrieval round recovered the <b>Anthropic Economic Index v3 raw release</b> (Claude.ai usage by country, "
+  "week of 2025-08-04 to 2025-08-11, the data behind the September 2025 geography report / registry S04) through a "
+  "community GitHub mirror of the blocked Hugging Face repository, with the mirror's git commit and file hashes "
+  "recorded in the manifest and the release's own data documentation used as the fingerprint. This makes the design's "
+  "cross-provider consistency criterion (H4) testable for the first time. Three declared specs (D1-D3, ledgered):")
+rows = [["Spec", "Question", "Result"]]
+rows.append(["D1", "Do raw adoption levels agree across providers?",
+             "Yes: Pearson %.2f / Spearman %.2f between log Claude usage per capita and logit Microsoft "
+             "diffusion (N=%d)" % (cp["D1"]["pearson_log_vs_logit"], cp["D1"]["spearman"], cp["n_joint"])])
+rows.append(["D2", "Do income-adjusted surprises (AIS) agree?",
+             "Barely: Pearson %.2f (perm p=%.3f); top-15 overlap %d/15 (%s); bottom-15 overlap %d/15" % (
+              cp["D2"]["pearson_ais"], cp["D2"]["perm_p"], cp["D2"]["top15_overlap"],
+              ", ".join(cp["D2"]["top15_common"]), cp["D2"]["bottom15_overlap"])])
+rows.append(["D3", "Restricted-market coverage",
+             "All seven provider-restricted economies (CHN, RUS, BLR, IRN, CUB, SYR, AFG) are entirely absent "
+             "from the Anthropic index — corroborating finding C by construction"])
+story.append(T(rows, [1.3*cm, 5.6*cm, 10.1*cm]))
+story.append(Spacer(1, 6))
+P("<b>Reading: a disciplined negative result.</b> The providers see the same adoption landscape in levels, but once "
+  "the structural component (income, size, region) is removed, their surprises share little country-level signal. "
+  "The single-provider AIS league table of Section 4 is therefore <b>not confirmed</b> by the second provider — "
+  "exactly the failure mode the framework's H4 promotion criterion exists to catch, now caught in practice. "
+  "Two readings are observationally equivalent here: (i) national 'AI integration' beyond structure is largely "
+  "provider-ecosystem-specific (Claude's professional/developer skew vs Microsoft's broad consumer reach); "
+  "(ii) a single week of Claude data is too noisy at country level for stable residuals (attenuation). The intended "
+  "discriminating check — correlating Claude.ai AIS against Anthropic's own API AIS — is infeasible because the v3 "
+  "API file carries no country geography (ledgered as D4-infeasible). Consequence for the design: the C2 proposal "
+  "to promote multi-provider latent-factor reconciliation from robustness layer to core AIS construction is no "
+  "longer optional — <b>without it, any single-provider AIS overclaims</b>. The divergence finding of Section 5 is "
+  "unaffected (it uses levels, where providers agree), and the income-gradient finding is reinforced (it is the "
+  "component both providers share).")
 
 story.append(Paragraph("7. Parallels with existing research", H1))
 P("<b>Microsoft AI Economy Institute (2026), the source reports.</b> Everything here is consistent with, and validated "

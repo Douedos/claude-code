@@ -110,15 +110,6 @@
     "detail": "huggingface.co blocked by egress policy"
   },
   {
-    "source_id": "S04",
-    "name": "Anthropic Economic Index Sept 2025 geography report",
-    "url": "https://www.anthropic.com/research/anthropic-economic-index-september-2025-report",
-    "use_class": "CORE",
-    "retrieved_utc": "2026-08-25T04:25:12.618693+00:00",
-    "status": "blocked_by_egress",
-    "detail": "anthropic.com blocked by egress policy"
-  },
-  {
     "source_id": "S05",
     "name": "OpenAI Signals individual data",
     "url": "https://openai.com/signals/data/",
@@ -197,5 +188,44 @@
     "status": "recorded",
     "git_head": "8fe84a3b797e89846e892592dbb9d0022e9b7dd2",
     "retrieved_utc": "2026-08-25T04:25:12.618693+00:00"
+  },
+  {
+    "source_id": "S04a",
+    "name": "AEI v3 raw Claude.ai usage (2025-08-04..11), Sept 2025 release",
+    "url": "https://raw.githubusercontent.com/duyet/economic-index/master/aei_v3_download/aei_raw_claude_ai_2025-08-04_to_2025-08-11.csv",
+    "use_class": "CORE (second provider)",
+    "retrieved_utc": "2026-08-25T12:58:56.038377+00:00",
+    "status": "retrieved",
+    "local_file": "raw/S04a_aei_raw_claude_ai_2025-08-04_to_2025-08-11.csv",
+    "bytes": 18894517,
+    "sha256": "c8ef9c5eee0c42febc73e358ecc7d2358e0a0ce3b50122c0c15ae8ec569aceff",
+    "license": "CC-BY (Anthropic Economic Index)",
+    "channel": "community GitHub mirror duyet/economic-index @ 2b3a67d0e34d of huggingface.co/datasets/Anthropic/EconomicIndex release_2025_09_15 (huggingface.co and anthropic.com blocked by egress; mirror hash recorded)"
+  },
+  {
+    "source_id": "S04b",
+    "name": "AEI v3 raw 1P API usage (2025-08-04..11), Sept 2025 release",
+    "url": "https://raw.githubusercontent.com/duyet/economic-index/master/aei_v3_download/aei_raw_1p_api_2025-08-04_to_2025-08-11.csv",
+    "use_class": "CORE (second provider)",
+    "retrieved_utc": "2026-08-25T12:58:56.038377+00:00",
+    "status": "retrieved",
+    "local_file": "raw/S04b_aei_raw_1p_api_2025-08-04_to_2025-08-11.csv",
+    "bytes": 7027019,
+    "sha256": "c0fc061ea7d4feb71a7bd88c528d54e2d3a11e2045574f1e1fb2d594eebffd0f",
+    "license": "CC-BY (Anthropic Economic Index)",
+    "channel": "community GitHub mirror duyet/economic-index @ 2b3a67d0e34d of huggingface.co/datasets/Anthropic/EconomicIndex release_2025_09_15 (huggingface.co and anthropic.com blocked by egress; mirror hash recorded)"
+  },
+  {
+    "source_id": "S04c",
+    "name": "AEI v3 data documentation (Sept 2025 release)",
+    "url": "https://raw.githubusercontent.com/duyet/economic-index/master/aei_v3_download/data_documentation.md",
+    "use_class": "CORE (second provider)",
+    "retrieved_utc": "2026-08-25T12:58:56.038377+00:00",
+    "status": "retrieved",
+    "local_file": "raw/S04c_data_documentation.md",
+    "bytes": 18245,
+    "sha256": "cc57723797b61a7e6058409b37e994f38197ee626458ddb62bfc390379a5bd95",
+    "license": "CC-BY (Anthropic Economic Index)",
+    "channel": "community GitHub mirror duyet/economic-index @ 2b3a67d0e34d of huggingface.co/datasets/Anthropic/EconomicIndex release_2025_09_15 (huggingface.co and anthropic.com blocked by egress; mirror hash recorded)"
   }
 ]

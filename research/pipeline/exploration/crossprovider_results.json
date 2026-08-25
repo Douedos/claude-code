@@ -1,0 +1,46 @@
+{
+  "n_joint": 120,
+  "aei_countries_total": 171,
+  "D1": {
+    "pearson_log_vs_logit": 0.7815011207204025,
+    "spearman": 0.8205139189788931
+  },
+  "D2": {
+    "pearson_ais": 0.17811763894672536,
+    "spearman_ais": 0.17476213625946244,
+    "perm_p": 0.051394860513948606,
+    "top15_overlap": 3,
+    "top15_common": [
+      "LBN",
+      "NPL",
+      "NZL"
+    ],
+    "bottom15_overlap": 4,
+    "bottom15_common": [
+      "BGD",
+      "KWT",
+      "PNG",
+      "UZB"
+    ]
+  },
+  "D3": {
+    "restricted_present_in_aei": {
+      "CHN": false,
+      "RUS": false,
+      "BLR": false,
+      "IRN": false,
+      "CUB": false,
+      "SYR": false,
+      "AFG": false
+    },
+    "note": "absence = provider does not serve the market; telemetry cannot distinguish zero access from zero demand"
+  },
+  "min_usage_floor": 50,
+  "excluded_below_floor": [
+    "GMB",
+    "GUY",
+    "LBR",
+    "SUR",
+    "TKM"
+  ]
+}
