@@ -1,0 +1,21 @@
+{
+  "microsoft_economies": 147,
+  "matched": 147,
+  "unmatched_economies": [],
+  "missing_gdp": [
+    "TWN",
+    "GUF",
+    "VEN",
+    "ERI",
+    "SSD"
+  ],
+  "gdp_vintage_years": [
+    2020,
+    2021,
+    2022,
+    2023
+  ],
+  "pop_vintage_years": [
+    2024
+  ]
+}

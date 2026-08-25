@@ -1,0 +1,201 @@
+[
+  {
+    "source_id": "S02",
+    "name": "Microsoft AI Diffusion public repository (country CSV)",
+    "url": "https://raw.githubusercontent.com/microsoft/ai-diffusion-report/main/data/AI_Diffusion_Q12026_Update.csv",
+    "use_class": "CORE",
+    "retrieved_utc": "2026-08-25T04:25:12.618693+00:00",
+    "status": "retrieved",
+    "local_file": "raw/S02_AI_Diffusion_Q12026_Update.csv",
+    "bytes": 4468,
+    "sha256": "8e304330f5a637795c9af519733ad38a2a9446a6497aae5e5b2c717ed67f67e2",
+    "license": "see repo LICENSE.md (Microsoft)",
+    "channel": "github raw (first-party Microsoft repo)",
+    "fingerprint_expected": "Economy,H1 2025 AI Diffusion,H2 2025 AI Diffusion,Q1 2026 AI Diffusion",
+    "fingerprint_match": true
+  },
+  {
+    "source_id": "S02b",
+    "name": "Microsoft AI Diffusion repo README (registry fingerprint check)",
+    "url": "https://raw.githubusercontent.com/microsoft/ai-diffusion-report/main/README.md",
+    "use_class": "CORE",
+    "retrieved_utc": "2026-08-25T04:25:12.618693+00:00",
+    "status": "retrieved",
+    "local_file": "raw/S02b_README.md",
+    "bytes": 3541,
+    "sha256": "016d900e299594e04deaf06ab36c4c7cb66569ccf83b7c0c060eacc31edbb13a",
+    "license": "see repo LICENSE.md (Microsoft)",
+    "channel": "github raw (first-party Microsoft repo)",
+    "fingerprint_expected": "This repository contains the datasets and report materials",
+    "fingerprint_match": true
+  },
+  {
+    "source_id": "S01",
+    "name": "Microsoft Global AI Diffusion Q1 2026 report PDF",
+    "url": "https://raw.githubusercontent.com/microsoft/ai-diffusion-report/main/reports/Microsoft-AI-Diffusion-Report-2026-Q1.pdf",
+    "use_class": "CORE",
+    "retrieved_utc": "2026-08-25T04:25:12.618693+00:00",
+    "status": "retrieved",
+    "local_file": "raw/S01_Microsoft-AI-Diffusion-Report-2026-Q1.pdf",
+    "bytes": 1784281,
+    "sha256": "3bf9f87b633724128c8389dc0701c0f4e03c943730e4bec5b04878368b655782",
+    "license": "see repo LICENSE.md (Microsoft)",
+    "channel": "github raw (first-party Microsoft repo; registry URL on microsoft.com also reachable)"
+  },
+  {
+    "source_id": "S01b",
+    "name": "Microsoft Global AI Diffusion 2025 H1 report PDF (first release)",
+    "url": "https://raw.githubusercontent.com/microsoft/ai-diffusion-report/main/reports/Microsoft-AI-Diffusion-Report-2025-H1.pdf",
+    "use_class": "CORE",
+    "retrieved_utc": "2026-08-25T04:25:12.618693+00:00",
+    "status": "retrieved",
+    "local_file": "raw/S01b_Microsoft-AI-Diffusion-Report-2025-H1.pdf",
+    "bytes": 7746221,
+    "sha256": "a1220d061a69362b21f0767b7ef853594d64a6e7933fbd0a0ea2eee042246070",
+    "license": "see repo LICENSE.md (Microsoft)",
+    "channel": "github raw (first-party Microsoft repo)"
+  },
+  {
+    "source_id": "S15",
+    "name": "World Bank GDP current US$ (Frictionless datasets/gdp mirror)",
+    "url": "https://raw.githubusercontent.com/datasets/gdp/main/data/gdp.csv",
+    "use_class": "SUPPORTING",
+    "retrieved_utc": "2026-08-25T04:25:12.618693+00:00",
+    "status": "retrieved",
+    "local_file": "raw/S15_wb_gdp_current_usd.csv",
+    "bytes": 562767,
+    "sha256": "8d84ef6bcaccf740c01c5ed7566aae8f7b149d0e2c20001e441efd3cb5b2fa86",
+    "license": "ODC-PDDL (mirror); underlying WB CC-BY 4.0",
+    "channel": "github raw (Frictionless Data mirror of World Bank API; first-party api.worldbank.org blocked)",
+    "fingerprint_expected": "Country Name,Country Code,Year,Value",
+    "fingerprint_match": true
+  },
+  {
+    "source_id": "X01",
+    "name": "World Bank population total (Frictionless datasets/population mirror)",
+    "url": "https://raw.githubusercontent.com/datasets/population/main/data/population.csv",
+    "use_class": "SUPPORTING",
+    "retrieved_utc": "2026-08-25T04:25:12.618693+00:00",
+    "status": "retrieved",
+    "local_file": "raw/X01_wb_population.csv",
+    "bytes": 552112,
+    "sha256": "7d2dd6a17f5ed7916de1f89a9c116791e64d207f2e2f6ce47c57e1ab46f0088a",
+    "license": "ODC-PDDL (mirror); underlying WB CC-BY 4.0",
+    "channel": "github raw (Frictionless Data mirror; first-party api.worldbank.org blocked)",
+    "fingerprint_expected": "Country Name,Country Code,Year,Value",
+    "fingerprint_match": true
+  },
+  {
+    "source_id": "X02",
+    "name": "Country codes / regions concordance (Frictionless datasets/country-codes)",
+    "url": "https://raw.githubusercontent.com/datasets/country-codes/main/data/country-codes.csv",
+    "use_class": "CONCORDANCE",
+    "retrieved_utc": "2026-08-25T04:25:12.618693+00:00",
+    "status": "retrieved",
+    "local_file": "raw/X02_country_codes.csv",
+    "bytes": 134003,
+    "sha256": "67b009b529330b0a6043551189f43faa785c9c3cc0011ad2bdb4eac876356c43",
+    "license": "ODC-PDDL",
+    "channel": "github raw",
+    "fingerprint_expected": "ISO3166-1-Alpha-3",
+    "fingerprint_match": true
+  },
+  {
+    "source_id": "S03",
+    "name": "Anthropic Economic Index June 2026 data documentation",
+    "url": "https://huggingface.co/datasets/Anthropic/EconomicIndex/blob/main/release_2026_06_26/data_documentation.md",
+    "use_class": "CORE",
+    "retrieved_utc": "2026-08-25T04:25:12.618693+00:00",
+    "status": "blocked_by_egress",
+    "detail": "huggingface.co blocked by egress policy"
+  },
+  {
+    "source_id": "S04",
+    "name": "Anthropic Economic Index Sept 2025 geography report",
+    "url": "https://www.anthropic.com/research/anthropic-economic-index-september-2025-report",
+    "use_class": "CORE",
+    "retrieved_utc": "2026-08-25T04:25:12.618693+00:00",
+    "status": "blocked_by_egress",
+    "detail": "anthropic.com blocked by egress policy"
+  },
+  {
+    "source_id": "S05",
+    "name": "OpenAI Signals individual data",
+    "url": "https://openai.com/signals/data/",
+    "use_class": "CORE",
+    "retrieved_utc": "2026-08-25T04:25:12.618693+00:00",
+    "status": "blocked_by_egress",
+    "detail": "openai.com blocked by egress policy"
+  },
+  {
+    "source_id": "S07",
+    "name": "OpenRouter State of AI 2025",
+    "url": "https://openrouter.ai/state-of-ai",
+    "use_class": "ROBUSTNESS",
+    "retrieved_utc": "2026-08-25T04:25:12.618693+00:00",
+    "status": "blocked_by_egress",
+    "detail": "openrouter.ai blocked by egress policy"
+  },
+  {
+    "source_id": "S08",
+    "name": "Eurostat productivity trends (nama_10_lp_a21)",
+    "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/nama_10_lp_a21",
+    "use_class": "CORE OUTCOME",
+    "retrieved_utc": "2026-08-25T04:25:12.618693+00:00",
+    "status": "blocked_by_egress",
+    "detail": "ec.europa.eu blocked by egress policy"
+  },
+  {
+    "source_id": "S10",
+    "name": "Eurostat services production (sts_sepr_m)",
+    "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/sts_sepr_m",
+    "use_class": "CORE OUTCOME",
+    "retrieved_utc": "2026-08-25T04:25:12.618693+00:00",
+    "status": "blocked_by_egress",
+    "detail": "ec.europa.eu blocked by egress policy"
+  },
+  {
+    "source_id": "S11",
+    "name": "IMF WEO April 2026",
+    "url": "https://www.imf.org/external/datamapper/datasets/WEO",
+    "use_class": "CORE MACRO",
+    "retrieved_utc": "2026-08-25T04:25:12.618693+00:00",
+    "status": "blocked_by_egress",
+    "detail": "imf.org blocked by egress policy"
+  },
+  {
+    "source_id": "S12",
+    "name": "IMF WEO Database October 2024 (forecast baseline)",
+    "url": "https://www.imf.org/en/publications/weo/weo-database/2024/october",
+    "use_class": "CORE MACRO",
+    "retrieved_utc": "2026-08-25T04:25:12.618693+00:00",
+    "status": "blocked_by_egress",
+    "detail": "imf.org blocked by egress policy"
+  },
+  {
+    "source_id": "S13",
+    "name": "ILO ISCO-08 Vol I",
+    "url": "https://webapps.ilo.org/ilostat-files/ISCO/newdocs-08-2021/ISCO-08/ISCO-08%20EN%20Vol%201.pdf",
+    "use_class": "CORE DENOMINATOR",
+    "retrieved_utc": "2026-08-25T04:25:12.618693+00:00",
+    "status": "blocked_by_egress",
+    "detail": "webapps.ilo.org blocked by egress policy"
+  },
+  {
+    "source_id": "S14",
+    "name": "ILOSTAT employment by occupation",
+    "url": "https://ilostat.ilo.org/data/",
+    "use_class": "CORE DENOMINATOR",
+    "retrieved_utc": "2026-08-25T04:25:12.618693+00:00",
+    "status": "blocked_by_egress",
+    "detail": "ilostat.ilo.org blocked by egress policy"
+  },
+  {
+    "source_id": "S02-vintage",
+    "name": "microsoft/ai-diffusion-report git HEAD",
+    "url": "https://github.com/microsoft/ai-diffusion-report",
+    "status": "recorded",
+    "git_head": "8fe84a3b797e89846e892592dbb9d0022e9b7dd2",
+    "retrieved_utc": "2026-08-25T04:25:12.618693+00:00"
+  }
+]

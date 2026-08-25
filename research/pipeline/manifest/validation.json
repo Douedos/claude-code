@@ -1,0 +1,77 @@
+[
+  {
+    "check": "unique_iso3_keys",
+    "passed": true,
+    "detail": "n=147"
+  },
+  {
+    "check": "adoption_shares_in_(0,100)",
+    "passed": true,
+    "detail": "all in range"
+  },
+  {
+    "check": "adoption_mostly_nondecreasing",
+    "passed": true,
+    "detail": "0 economies declined H1'25->Q1'26 (informational)"
+  },
+  {
+    "check": "population_positive",
+    "passed": true,
+    "detail": "ok"
+  },
+  {
+    "check": "published_value_ARE_q1_2026",
+    "passed": true,
+    "detail": "published=70.1 retrieved=70.1"
+  },
+  {
+    "check": "published_value_SGP_q1_2026",
+    "passed": true,
+    "detail": "published=63.4 retrieved=63.4"
+  },
+  {
+    "check": "published_value_NOR_q1_2026",
+    "passed": true,
+    "detail": "published=48.6 retrieved=48.6"
+  },
+  {
+    "check": "published_value_IRL_q1_2026",
+    "passed": true,
+    "detail": "published=48.4 retrieved=48.4"
+  },
+  {
+    "check": "published_value_USA_q1_2026",
+    "passed": true,
+    "detail": "published=31.3 retrieved=31.3"
+  },
+  {
+    "check": "published_value_CHN_q1_2026",
+    "passed": true,
+    "detail": "published=16.4 retrieved=16.4"
+  },
+  {
+    "check": "published_value_ARE_h2_2025",
+    "passed": true,
+    "detail": "published=64.0 retrieved=64.0"
+  },
+  {
+    "check": "published_value_SGP_h2_2025",
+    "passed": true,
+    "detail": "published=60.9 retrieved=60.9"
+  },
+  {
+    "check": "published_us_rank_21_q1_2026",
+    "passed": true,
+    "detail": "computed rank=21"
+  },
+  {
+    "check": "world_weighted_mean_near_17.8",
+    "passed": true,
+    "detail": "total-pop-weighted=17.60 (report 17.8 uses ages 15-64; deviation expected)"
+  },
+  {
+    "check": "missingness_reported",
+    "passed": true,
+    "detail": "missing gdp_pc: ['ERI', 'GUF', 'SSD', 'TWN', 'VEN']"
+  }
+]

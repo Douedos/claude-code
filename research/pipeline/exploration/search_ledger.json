@@ -1,0 +1,71 @@
+[
+  {
+    "spec": "A1",
+    "dep": "level",
+    "coef_lgdp": 6.555126345125153,
+    "r2": 0.654684809004636
+  },
+  {
+    "spec": "A2",
+    "dep": "logit",
+    "coef_lgdp": 0.418027275025631,
+    "r2": 0.6987215848716322
+  },
+  {
+    "spec": "A3",
+    "dep": "logit",
+    "coef_lgdp": 0.41870800500536876,
+    "coef_lpop": 0.006054226517866173,
+    "r2": 0.698840710176704
+  },
+  {
+    "spec": "A4_PRIMARY",
+    "dep": "logit",
+    "coef_lgdp": 0.4441758753034185,
+    "coef_lpop": 0.006658000077058911,
+    "r2": 0.7059637916172721
+  },
+  {
+    "spec": "A5_rank",
+    "spearman_rho": 0.8262274869558656,
+    "p": 1.04017726768839e-36
+  },
+  {
+    "spec": "B1",
+    "coef_init": 0.1357555235052837,
+    "perm_p": 9.999000099990002e-05
+  },
+  {
+    "spec": "B2",
+    "coef_lgdp": 0.8844209621077798,
+    "perm_p": 9.999000099990002e-05
+  },
+  {
+    "spec": "B3",
+    "coef_init": 0.10037229309378523,
+    "perm_p": 9.999000099990002e-05
+  },
+  {
+    "spec": "B4",
+    "coef_linit": -0.020669559086368642,
+    "perm_p": 0.0018998100189981002
+  },
+  {
+    "spec": "C_posthoc_provider_restricted",
+    "provenance": "post-hoc; suggested by AIS bottom-rank inspection",
+    "group": [
+      "AFG",
+      "BLR",
+      "CHN",
+      "CUB",
+      "IRN",
+      "RUS",
+      "SYR"
+    ],
+    "mean_ais_restricted": -0.4400890293804268,
+    "mean_ais_rest": 0.0229354501677074,
+    "diff": -0.4630244795481342,
+    "perm_p": 0.007499250074992501,
+    "china_ais": -0.40211632838985845
+  }
+]
