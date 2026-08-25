@@ -128,15 +128,6 @@
     "detail": "openrouter.ai blocked by egress policy"
   },
   {
-    "source_id": "S08",
-    "name": "Eurostat productivity trends (nama_10_lp_a21)",
-    "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/nama_10_lp_a21",
-    "use_class": "CORE OUTCOME",
-    "retrieved_utc": "2026-08-25T04:25:12.618693+00:00",
-    "status": "blocked_by_egress",
-    "detail": "ec.europa.eu blocked by egress policy"
-  },
-  {
     "source_id": "S10",
     "name": "Eurostat services production (sts_sepr_m)",
     "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/sts_sepr_m",
@@ -235,5 +226,18 @@
     "sha256": "eb2cfa088e5a168cc6593f5cf247dc426ed0246d2abb0a5d2c2208fe4df07855",
     "license": "IMF terms of use",
     "channel": "user-supplied export from IMF data portal (data.imf.org; imf.org egress-blocked)"
+  },
+  {
+    "source_id": "S08",
+    "name": "Eurostat nama_10_lp_a21 full linear export (labour productivity by NACE)",
+    "url": "user upload; Eurostat data browser custom extraction 22465125 (ec.europa.eu egress-blocked)",
+    "use_class": "CORE OUTCOME",
+    "retrieved_utc": "2026-08-25T15:14:34.205854+00:00",
+    "status": "retrieved",
+    "local_file": "raw/S08_nama_10_lp_a21_linear.csv",
+    "bytes": 79860740,
+    "sha256": "a38fe552efacd757b75a2d2459bb83a6bb0bb412209fe739c889d7ee0487b35c",
+    "license": "Eurostat reuse policy (CC-BY 4.0)",
+    "channel": "user-supplied ZIP; dataset vintage: last update 2026-08-24 per accompanying default-view export"
   }
 ]

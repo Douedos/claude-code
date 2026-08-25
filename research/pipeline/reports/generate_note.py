@@ -48,9 +48,9 @@ def T(rows, widths, header=True, fs=7.8):
 story = []
 P = lambda txt, st=BODY: story.append(Paragraph(txt, st))
 story.append(Paragraph("AI Integration and Economic Effects", TITLE))
-story.append(Paragraph("Research Note 1 (v1.1) — First execution of the canonical pipeline: retrieval audit, validated adoption panel, "
-                       "AI Integration Surprise, diffusion dynamics, and the cross-provider test · 25 August 2026 · "
-                       "Evidence grade: EXPLORATORY", SUB))
+story.append(Paragraph("Research Note 1 (v1.2) — Canonical pipeline executed end-to-end: retrieval audit, validated adoption panel, "
+                       "AI Integration Surprise, diffusion dynamics, cross-provider test, and the priority-1 outcome regression · "
+                       "25 August 2026 · Evidence grade: EXPLORATORY", SUB))
 
 P("<b>Summary.</b> This note reports the first end-to-end execution of the research framework frozen in the design "
   "checklist: source retrieval with manifests and fingerprints, validation against published values, canonical panel "
@@ -64,11 +64,13 @@ P("<b>Summary.</b> This note reports the first end-to-end execution of the resea
   "<b>(3)</b> The additional finding: between H1 2025 and Q1 2026, global AI diffusion <b>diverged in absolute terms</b> — "
   "each percentage point of initial adoption predicts %.2f pp of additional growth over the window (search-adjusted "
   "permutation p=%.4f across the four-spec dynamic family; LOCO range [%.3f, %.3f]). The economic-outcome (EPS) "
-  "regression — the design's priority-1 test — could <b>not</b> be run: every outcome source is unreachable from this "
-  "execution environment, an audit result reported in Section 2. <b>v1.1 addendum:</b> a second retrieval round "
-  "recovered the Anthropic Economic Index v3 country data via a mirrored release, making the cross-provider "
-  "consistency criterion (H4) testable — with a disciplined negative outcome: adoption <i>levels</i> agree strongly "
-  "across providers, but income-adjusted surprises largely do not (Section 6b)." % (
+  "regression — the design's priority-1 test — was initially blocked (every outcome source unreachable; Section 2), "
+  "then unblocked in stages: <b>v1.1</b> recovered the Anthropic Economic Index via a mirrored release, making the "
+  "cross-provider criterion (H4) testable — levels agree across providers, income-adjusted surprises largely do not "
+  "(Section 6b); <b>v1.2</b> received the Eurostat productivity panel (through 2025) and both IMF WEO vintages as "
+  "user-supplied downloads and <b>executed the priority-1 regression: a search-adjusted null</b> (family p_search "
+  "= 0.19), with clean placebos, a provider sign-flip, and a 2023 pre-trend caveat — at the only testable horizon, "
+  "h = 0 (Section 6)." % (
    n_checks, "eight", A4m["coef_lgdp"], A4m["r2"], A4m["n"],
    C["mean_ais_restricted"], C["mean_ais_rest"], C["perm_p"],
    B["B1"]["coef_init"], MS["p_search"], B["B1"]["loco"]["min"], B["B1"]["loco"]["max"]))
@@ -201,17 +203,63 @@ P("<b>Honest mechanical caveat.</b> Under a logistic diffusion curve, absolute g
 story.append(Image(os.path.join(REP, "fig2_divergence.png"), width=15.5*cm, height=10.0*cm))
 story.append(PageBreak())
 
-story.append(Paragraph("6. The blocked branch: what the EPS regression needs", H1))
-P("The priority-1 test remains: EPS on jackknifed AIS interacted with sector cognitive exposure, with country×time and "
-  "sector×time fixed effects and wild-cluster bootstrap. To execute it, the environment needs: (i) ec.europa.eu — "
-  "Eurostat nama_10_lp_a21 (real GVA per hour by NACE section, exposed J/M/K vs controls) and sts_sepr_m (monthly "
-  "services output, intermediate outcome); (ii) imf.org — WEO April 2026 actuals plus the October 2024 pre-AI forecast "
-  "vintage for growth surprises; (iii) ilostat.ilo.org — employment by ISCO-08 for the white-collar denominator; "
-  "(iv) huggingface.co and openai.com — Anthropic AEI and OpenAI Signals for the cross-provider requirement. The AIS "
-  "measures produced here are the treatment-side input to that regression and are versioned in the panel for reuse. "
-  "Timing note: with adoption first measured in H1 2025, outcome data through 2023 (the mirror vintage available here) "
-  "precedes treatment measurement and was correctly not used — the no-look-ahead assertion in the validation layer "
-  "would have rejected it.")
+ez = json.load(open(os.path.join(BASE, "exploration/eps_results.json")))
+EE, WW = ez["E"], ez["W"]
+story.append(Paragraph("6. The priority-1 test, executed (v1.2): a search-adjusted null", H1))
+P("User-supplied downloads unblocked the outcome branch: the full Eurostat nama_10_lp_a21 export (real labour "
+  "productivity per hour worked by NACE section, 31 countries, years through <b>2025</b>, vintage 2026-08-24) and both "
+  "IMF WEO vintages (April 2026 actuals; October 2024 pre-AI forecast baseline), all manifested with hashes. "
+  "EPS is the 2025 productivity growth deviation from each country-sector's own 2015-2019 mean; the regression "
+  "follows the frozen design: EPS on AIS × sector exposure with country and sector fixed effects (identification "
+  "within country, across sectors), exposed = J (information/communication) and K (finance) — M (professional/"
+  "scientific) has 2025 data for only 6 of 31 countries, so it enters only as a ledgered variant — controls = "
+  "C (manufacturing), F (construction), G-I (trade/transport/accommodation). Inference: 10k country-label "
+  "permutations, 5k wild-cluster bootstrap draws, LOCO. The GDP-growth-surprise branch (H3) uses actual 2025 growth "
+  "(April 2026 vintage) minus the October 2024 forecast, N=137 countries.")
+rows = [["Spec", "Outcome (2025 unless noted)", "Beta", "Perm. p", "Wild-boot p", "N (countries)", "LOCO range"]]
+def er(k, label):
+    e = EE[k]
+    return [e["spec"].split("_")[0], label, "%.2f" % e["beta"], "%.2f" % e["perm_p"],
+            "%.2f" % e["wild_boot_p"], "%d (%d)" % (e["n_obs"], e["n_countries"]),
+            "[%.2f, %.2f]" % (e["loco_min"], e["loco_max"])]
+rows.append(er("E1", "EPS, AIS(Microsoft) x exposure — PRIMARY"))
+rows.append(er("E1m", "EPS incl. sector M"))
+rows.append(er("E2", "EPS, AIS(Anthropic) x exposure"))
+rows.append(er("E3_2019", "placebo: EPS 2019 (pre-AI)"))
+rows.append(er("E3_2023", "placebo: EPS 2023 (pre-measurement)"))
+rows.append(er("E4_2024", "EPS 2024"))
+story.append(T(rows, [1.4*cm, 6.4*cm, 1.5*cm, 1.5*cm, 1.9*cm, 2.1*cm, 2.7*cm]))
+story.append(Spacer(1, 5))
+rows = [["Spec", "Outcome", "Beta", "Perm. p", "N", "LOCO range"]]
+for k, lab in (("W1", "GDP growth surprise 2025 ~ AIS(MS)"),
+               ("W1c", "+ income control"),
+               ("W2", "~ AIS(Anthropic)"),
+               ("W3", "placebo: growth surprise 2024")):
+    w = WW[k]
+    rows.append([k, lab, "%.2f" % w["beta"], "%.2f" % w["perm_p"], str(w["n"]),
+                 "[%.2f, %.2f]" % (w["loco_min"], w["loco_max"])])
+story.append(T(rows, [1.4*cm, 7.2*cm, 1.6*cm, 1.6*cm, 1.4*cm, 3.0*cm]))
+story.append(Spacer(1, 6))
+P("<b>Result: null across the board, and honestly so.</b> The primary estimate is negative (beta = %.2f: exposed "
+  "sectors in unusually AI-integrated economies did <i>slightly worse</i> in 2025) but far from significant "
+  "(perm p = %.2f), and the family-wide max-stat correction across the five non-placebo specs gives "
+  "<b>p_search = %.2f</b> — nothing survives. Four observations discipline the reading. (1) The Anthropic-based "
+  "estimate has the <i>opposite sign</i> (+%.2f) — the cross-provider instability of Section 6b propagates to the "
+  "outcome stage, so no single-provider result here could have been promoted anyway. (2) The 2019 placebo is "
+  "cleanly null and the 2024 growth-surprise placebo is exactly zero (%.2f) — the machinery works. (3) The 2023 "
+  "placebo hints at a negative pre-trend (%.1f, p = %.2f): exposed sectors in high-AIS countries were already "
+  "underperforming before adoption was first measured — any future negative estimate must clear this bar before "
+  "being read as an AI effect. (4) Timing is the binding constraint by design: adoption was first measured in "
+  "H1 2025 and the outcome year is 2025, so the tested horizon is h = 0; adoption ranks are near-frozen "
+  "(r = %.3f between H1 2025 and Q1 2026), and the J-curve prior says effects at this horizon should be "
+  "undetectable — which is what the data show. The informative test begins with 2026-2027 outcome vintages "
+  "against these frozen, versioned AIS measures." % (
+   EE["E1"]["beta"], EE["E1"]["perm_p"], ez["family"]["p_search"], EE["E2"]["beta"],
+   WW["W3"]["beta"], EE["E3_2023"]["beta"], EE["E3_2023"]["perm_p"], ez["persistence_h1_q1"]))
+story.append(Image(os.path.join(REP, "fig4_eps_null.png"), width=15.0*cm, height=9.7*cm))
+P("Still blocked or missing: ILOSTAT white-collar denominators (ISCO), OpenAI Signals and OpenRouter measures, the "
+  "monthly services-output intermediate outcome (sts_sepr_m), and any post-2025 outcome vintage — the latter being "
+  "the one that matters.")
 
 cp = json.load(open(os.path.join(BASE, "exploration/crossprovider_results.json")))
 story.append(Paragraph("6b. Addendum (v1.1): the second provider retrieved — and the H4 criterion bites", H1))

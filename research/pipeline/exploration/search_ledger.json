@@ -97,5 +97,120 @@
   {
     "spec": "D4_infeasible",
     "note": "Within-provider check (Claude.ai AIS vs 1P API AIS) infeasible: the v3 1P API file contains only global-level rows, no country geography. The one-week sampling-attenuation caveat on D2 therefore cannot be separated from genuine provider-specific structure with this release."
+  },
+  {
+    "spec": "E1_primary_2025_MS",
+    "beta": -2.6364732092346332,
+    "perm_p": 0.33596640335966405,
+    "wild_boot_p": 0.191,
+    "wild_boot_se": 2.0129397733348124,
+    "n_obs": 125,
+    "n_countries": 25,
+    "loco_min": -3.680110743017086,
+    "loco_max": -1.8637523789573998
+  },
+  {
+    "spec": "E1m_withM_2025_MS",
+    "beta": -2.49978041669344,
+    "perm_p": 0.33756624337566243,
+    "wild_boot_p": 0.1954,
+    "wild_boot_se": 1.9123489154460023,
+    "n_obs": 130,
+    "n_countries": 25,
+    "loco_min": -3.473888550665818,
+    "loco_max": -1.7654099591682908
+  },
+  {
+    "spec": "E2_2025_AEI",
+    "beta": 2.1226326098234622,
+    "perm_p": 0.41815818418158185,
+    "wild_boot_p": 0.567,
+    "wild_boot_se": 3.3453897867610114,
+    "n_obs": 125,
+    "n_countries": 25,
+    "loco_min": -0.3667312149066939,
+    "loco_max": 3.8103685703204127
+  },
+  {
+    "spec": "E3_placebo_2019_MS",
+    "beta": -0.9454612073824331,
+    "perm_p": 0.6955304469553044,
+    "wild_boot_p": 0.7392,
+    "wild_boot_se": 2.5055501298099325,
+    "n_obs": 125,
+    "n_countries": 25,
+    "loco_min": -2.0214640635857064,
+    "loco_max": 1.0444376143769254
+  },
+  {
+    "spec": "E3_placebo_2023_MS",
+    "beta": -8.723790766059782,
+    "perm_p": 0.1004899510048995,
+    "wild_boot_p": 0.1016,
+    "wild_boot_se": 5.4104418188703995,
+    "n_obs": 125,
+    "n_countries": 25,
+    "loco_min": -10.988679813542587,
+    "loco_max": -5.062706397705687
+  },
+  {
+    "spec": "E4_2024_MS",
+    "beta": -2.9102377636166428,
+    "perm_p": 0.549045095490451,
+    "wild_boot_p": 0.454,
+    "wild_boot_se": 3.7642605788978933,
+    "n_obs": 125,
+    "n_countries": 25,
+    "loco_min": -4.450126178966901,
+    "loco_max": -0.6359949148968722
+  },
+  {
+    "spec": "W1_gsurp2025_MS",
+    "beta": -0.2729266889167952,
+    "perm_p": 0.49655034496550343,
+    "n": 137,
+    "loco_min": -0.43365347575097446,
+    "loco_max": -0.042169074691844805,
+    "mean_surprise": -0.06573722627737223
+  },
+  {
+    "spec": "W1c_gsurp2025_MS_income",
+    "beta": -0.28784846691472643,
+    "perm_p": 0.47555244475552444,
+    "n": 137,
+    "loco_min": -0.43420465879619985,
+    "loco_max": -0.05982720312579825,
+    "mean_surprise": -0.06573722627737223
+  },
+  {
+    "spec": "W2_gsurp2025_AEI",
+    "beta": -0.10647637657920665,
+    "perm_p": 0.6583341665833417,
+    "n": 118,
+    "loco_min": -0.18533206972293786,
+    "loco_max": -0.011655928042202772,
+    "mean_surprise": -0.06927118644067796
+  },
+  {
+    "spec": "W3_placebo_gsurp2024_MS",
+    "beta": 0.011551282678861496,
+    "perm_p": 0.9646035396460354,
+    "n": 137,
+    "loco_min": -0.1241570215653154,
+    "loco_max": 0.07200996840266585,
+    "mean_surprise": 0.27137956204379565
+  },
+  {
+    "spec": "EW_family_maxstat",
+    "observed_max_std_beta": 1.9553686756033646,
+    "p_search": 0.1888111888111888,
+    "family": [
+      "E1",
+      "E2",
+      "W1",
+      "W1c",
+      "W2"
+    ],
+    "ndraw": 1000
   }
 ]
