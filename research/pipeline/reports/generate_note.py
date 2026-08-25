@@ -48,9 +48,9 @@ def T(rows, widths, header=True, fs=7.8):
 story = []
 P = lambda txt, st=BODY: story.append(Paragraph(txt, st))
 story.append(Paragraph("AI Integration and Economic Effects", TITLE))
-story.append(Paragraph("Research Note 1 (v2.1) — Canonical pipeline executed end-to-end: retrieval audit, validated adoption panel, "
+story.append(Paragraph("Research Note 1 (v2.2) — Canonical pipeline executed end-to-end: retrieval audit, validated adoption panel, "
                        "AI Integration Surprise, diffusion dynamics, cross-provider test, the priority-1 outcome regression, "
-                       "the 2016-2025 event study, the Bayesian layer, the confounder scoreboard, and the trace map · "
+                       "the 2016-2025 event study, the Bayesian layer, the confounder scoreboard, the trace map, and the white-collar layer · "
                        "25 August 2026 · Evidence grade: EXPLORATORY", SUB))
 
 P("<b>Summary.</b> This note reports the first end-to-end execution of the research framework frozen in the design "
@@ -440,8 +440,8 @@ rows += [
   "log-pop coefficient 0.007 (SE 0.029): no scale effect survives income+region", "CLOSED"],
  ["Income / digital maturity", "AIS residualization (log GDP pc, region FE); jackknife",
   "income alone explains ~70 percent of adoption variance (A4 R2 = 0.71)", "CLOSED (for adoption); open for outcome-side digital controls"],
- ["Occupational mix", "white-collar denominator (ISCO 1-4)",
-  "not measurable: ILOSTAT egress-blocked and not yet user-supplied", "OPEN"],
+ ["Occupational mix", "ISCO-08 groups 1-4 share (ILOSTAT, user-supplied; 118 countries), added to the AIS residual model; 1-3 sensitivity",
+  "nearly nil beyond income: R2 gain 0.007, coef 0.82 (HC1 0.54); AIS v1-v2 corr 0.987; E1 and W1 nulls unchanged", "CLOSED (v2.2)"],
  ["AI-producer exposure", "producer-set sensitivity (drop NLD, IRL / KOR, TWN, NLD, IRL, SGP)",
   "E1 unchanged (-0.44 to -0.50); W1 moves -0.27 to -0.57 (p 0.48 to 0.13): producers mask a weakly negative user-side association", "PARTIALLY CLOSED - see trace G2"],
  ["Language / availability", "region FE; provider-restriction group test",
@@ -510,6 +510,24 @@ P("<b>The two leads worth carrying forward, stated with their caveats.</b> <b>(1
    G2s["W1_drop_producers"]["beta"], G2s["W1_drop_producers"]["p"]))
 story.append(Image(os.path.join(REP, "fig6_trace_map.png"), width=16.0*cm, height=6.4*cm))
 story.append(Spacer(1, 6))
+wc = json.load(open(os.path.join(BASE, "exploration/wc_results.json")))
+story.append(Paragraph("11b. The white-collar layer (v2.2): a confounder closed, a ratio rule vindicated", H2))
+P("The ILOSTAT employment-by-occupation table (user-supplied; ISCO-08, 118 panel countries, mostly 2024-2025 "
+  "vintages) closes the occupational-mix row of the scoreboard, with an anticlimactic and therefore reassuring "
+  "result: the white-collar share (ISCO 1-4, per frozen D3) adds essentially nothing to the adoption model once "
+  "income, size and region are held — coefficient %.2f (HC1 %.2f), R-squared gain %.3f (WC1) — and the AIS "
+  "measure is invariant to it (v1-v2 correlation %.3f; the only notable mover is Korea, dropping 16 ranks once "
+  "its large white-collar workforce is credited). The priority-1 and macro nulls are unchanged under AIS v2 "
+  "(E1: %.2f, p = %.2f; W1: %.2f, p = %.2f). The feared 'countries with more cognitive workers adopt more' "
+  "confound is, empirically, almost entirely absorbed by income. Separately, the professional-intensity margin "
+  "(Axis A) delivered a textbook validation of the design's ratio rule (D2): the raw adoption-per-white-collar-"
+  "worker ranking is topped by %s — low-income economies whose tiny white-collar denominators mechanically "
+  "inflate the ratio. The residualized version behaves (correlation %.2f with AIS; W-branch test null, "
+  "p = %.2f), but the raw ratio goes exactly where the skeleton said ratios go: descriptive use only." % (
+   wc["WC1"]["coef_wc14"], wc["WC1"]["hc1"], wc["WC1"]["r2_gain"], wc["WC2"]["corr_ais_v1_v2"],
+   wc["WC3"]["beta"], wc["WC3"]["perm_p"], wc["WC4"]["beta"], wc["WC4"]["perm_p"],
+   ", ".join(wc["WC5"]["top5_pi"]), wc["WC5"]["corr_pi_surprise_vs_ais"], wc["WC5"]["w_test"]["perm_p"]))
+story.append(Spacer(1, 6))
 P("<b>Minimum detectable effects (80 percent power), the design's ceiling.</b> Per one standard deviation of AIS "
   "(sd = %.2f logit): E1 productivity design MDE ~%.1f pp of differential yearly growth against plausible effects "
   "of 0.3-1.0 pp — underpowered by roughly 3-8x at a single year; W1 macro design MDE ~%.2f pp of growth surprise "
@@ -525,7 +543,7 @@ rows += [
   "HIGHEST - turns h=0 into h=1-2 and halves the MDE"],
  ["External registration of the frozen confirmatory specs (OSF-style, hashed)", "user action", "high - converts self-attestation into verifiable preregistration"],
  ["Latent-factor / IV provider reconciliation as core AIS (C2)", "a second AEI vintage window; OpenAI Signals", "high - D2 says single-provider AIS overclaims"],
- ["ILOSTAT ISCO 1-4 white-collar denominators", "user download (rplumber.ilo.org CSV)", "medium - professional-intensity margin untested"],
+ ["ILOSTAT white-collar denominators", "DONE (v2.2)", "delivered: confounder closed, ratio rule vindicated"],
  ["Monthly services output (sts_sepr_m) as fast intermediate outcome", "user download from Eurostat", "medium - adds within-year timing"],
  ["H6 shock-interaction family", "an identified 2025-26 shock series (e.g. tariff/energy shocks)", "medium - the second core family, untouched"],
  ["OpenAI Signals + OpenRouter depth measures", "egress or user download", "medium - third/fourth provider for reconciliation"],

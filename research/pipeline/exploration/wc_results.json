@@ -1,0 +1,71 @@
+{
+  "WC1": {
+    "coef_wc14": 0.8179335456513863,
+    "hc1": 0.5376367377668029,
+    "r2_without": 0.7208976902731713,
+    "r2_with": 0.7276606000453666,
+    "r2_gain": 0.006762909772195291,
+    "coef_wc13": 0.6444124517564296,
+    "hc1_wc13": 0.5876474723465278,
+    "n": 118,
+    "note": "wc coef = logit-adoption per unit white-collar share"
+  },
+  "WC2": {
+    "corr_ais_v1_v2": 0.9871166161692349,
+    "spearman": 0.9807244931871054,
+    "largest_rank_moves": [
+      [
+        "SOM",
+        -35
+      ],
+      [
+        "ALB",
+        22
+      ],
+      [
+        "MDA",
+        18
+      ],
+      [
+        "QAT",
+        18
+      ],
+      [
+        "KOR",
+        -16
+      ]
+    ]
+  },
+  "WC3": {
+    "beta": -2.0677913716696112,
+    "perm_p": 0.46065393460653936,
+    "n_countries": 25,
+    "comparison_v1_beta": -2.636
+  },
+  "WC4": {
+    "beta": -0.08890771446208495,
+    "perm_p": 0.8454154584541546,
+    "n": 115,
+    "comparison_v1": {
+      "beta": -0.273,
+      "perm_p": 0.5
+    }
+  },
+  "WC5": {
+    "w_test": {
+      "beta": 0.14353082733959857,
+      "perm_p": 0.7015298470152985,
+      "n": 115
+    },
+    "top5_pi": [
+      "NER",
+      "BDI",
+      "SEN",
+      "TCD",
+      "MOZ"
+    ],
+    "corr_pi_surprise_vs_ais": 0.658149553440254,
+    "note": "PI = working-age adoption share / white-collar employment share (approx)"
+  },
+  "n_sample": 118
+}

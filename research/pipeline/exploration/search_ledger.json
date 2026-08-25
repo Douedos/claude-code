@@ -326,5 +326,22 @@
       "G2"
     ],
     "note": "declared in trace_scan.py before estimation"
+  },
+  {
+    "spec": "WC_family",
+    "specs": [
+      "WC1",
+      "WC2",
+      "WC3",
+      "WC4",
+      "WC5"
+    ],
+    "results": {
+      "WC1_coef": 0.8179335456513863,
+      "WC2_corr": 0.9871166161692349,
+      "WC3_beta": -2.0677913716696112,
+      "WC4_beta": -0.08890771446208495,
+      "WC5_beta": 0.14353082733959857
+    }
   }
 ]

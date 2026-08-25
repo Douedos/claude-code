@@ -146,15 +146,6 @@
     "detail": "webapps.ilo.org blocked by egress policy"
   },
   {
-    "source_id": "S14",
-    "name": "ILOSTAT employment by occupation",
-    "url": "https://ilostat.ilo.org/data/",
-    "use_class": "CORE DENOMINATOR",
-    "retrieved_utc": "2026-08-25T04:25:12.618693+00:00",
-    "status": "blocked_by_egress",
-    "detail": "ilostat.ilo.org blocked by egress policy"
-  },
-  {
     "source_id": "S02-vintage",
     "name": "microsoft/ai-diffusion-report git HEAD",
     "url": "https://github.com/microsoft/ai-diffusion-report",
@@ -242,5 +233,18 @@
     "bytes_compressed": 2157491,
     "sha256_gzip": "dbf761f1b6effb26f77b84a4f9267ef6713e0a6fcbe079fd30c51f007cad178c",
     "storage_note": "stored gzip-compressed in git: Git LFS unavailable (GitHub rejects LFS objects on public forks); sha256 field is the UNCOMPRESSED file hash"
+  },
+  {
+    "source_id": "S14",
+    "name": "ILOSTAT employment by sex and occupation (EMP_TEMP_SEX_OCU_NB, thousands)",
+    "url": "user upload; rplumber.ilo.org/data/indicator/?id=EMP_TEMP_SEX_OCU_NB_A (ilo.org egress-blocked)",
+    "use_class": "CORE DENOMINATOR",
+    "retrieved_utc": "2026-08-25T16:12:51.055072+00:00",
+    "status": "retrieved",
+    "local_file": "raw/S14_ilostat_emp_by_occupation.csv",
+    "bytes": 19881535,
+    "sha256": "73685f07c78a5537aefd7bea47edb580111f6064faf3f3451135a6fe2ea56c63",
+    "license": "ILO terms of use",
+    "channel": "user-supplied CSV download"
   }
 ]
