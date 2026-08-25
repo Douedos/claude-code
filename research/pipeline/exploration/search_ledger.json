@@ -312,5 +312,19 @@
       ]
     },
     "note": "declared before computation; see bayes_layer.py"
+  },
+  {
+    "spec": "TRACE_SCAN_family",
+    "specs": [
+      "T1",
+      "T2",
+      "T3",
+      "S1_J",
+      "S1_K",
+      "A1",
+      "A2",
+      "G2"
+    ],
+    "note": "declared in trace_scan.py before estimation"
   }
 ]

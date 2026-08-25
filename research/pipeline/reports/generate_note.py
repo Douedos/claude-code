@@ -48,9 +48,10 @@ def T(rows, widths, header=True, fs=7.8):
 story = []
 P = lambda txt, st=BODY: story.append(Paragraph(txt, st))
 story.append(Paragraph("AI Integration and Economic Effects", TITLE))
-story.append(Paragraph("Research Note 1 (v2.0) — Canonical pipeline executed end-to-end: retrieval audit, validated adoption panel, "
+story.append(Paragraph("Research Note 1 (v2.1) — Canonical pipeline executed end-to-end: retrieval audit, validated adoption panel, "
                        "AI Integration Surprise, diffusion dynamics, cross-provider test, the priority-1 outcome regression, "
-                       "the 2016-2025 event study, and the Bayesian layer · 25 August 2026 · Evidence grade: EXPLORATORY", SUB))
+                       "the 2016-2025 event study, the Bayesian layer, the confounder scoreboard, and the trace map · "
+                       "25 August 2026 · Evidence grade: EXPLORATORY", SUB))
 
 P("<b>Summary.</b> This note reports the first end-to-end execution of the research framework frozen in the design "
   "checklist: source retrieval with manifests and fingerprints, validation against published values, canonical panel "
@@ -427,7 +428,114 @@ P("<b>Is this a known technique?</b> Yes — as an ensemble. Each layer is textb
   "which is a feature: every step has a citation, and every posterior in the table above can be recomputed from "
   "the ledger by anyone who disagrees with the priors.")
 
-story.append(Paragraph("10. Provenance", H1))
+ts = json.load(open(os.path.join(BASE, "exploration/trace_scan_results.json")))
+TT, G2s, MDEs = ts["trend_stats"], ts["G2"], ts["MDE"]
+story.append(Paragraph("10. Confounder scoreboard (v2.1)", H1))
+P("The skeleton's confounder map, converted from a list of intentions into an empirical scoreboard: what was "
+  "actually applied, what bite it measurably had, and what remains open. Open rows are the confounder side of "
+  "the TODO list.")
+rows = [["Confounder", "Mitigation applied", "Measured bite", "Status"]]
+rows += [
+ ["Country scale", "per-capita measures; log-pop covariate; country FE",
+  "log-pop coefficient 0.007 (SE 0.029): no scale effect survives income+region", "CLOSED"],
+ ["Income / digital maturity", "AIS residualization (log GDP pc, region FE); jackknife",
+  "income alone explains ~70 percent of adoption variance (A4 R2 = 0.71)", "CLOSED (for adoption); open for outcome-side digital controls"],
+ ["Occupational mix", "white-collar denominator (ISCO 1-4)",
+  "not measurable: ILOSTAT egress-blocked and not yet user-supplied", "OPEN"],
+ ["AI-producer exposure", "producer-set sensitivity (drop NLD, IRL / KOR, TWN, NLD, IRL, SGP)",
+  "E1 unchanged (-0.44 to -0.50); W1 moves -0.27 to -0.57 (p 0.48 to 0.13): producers mask a weakly negative user-side association", "PARTIALLY CLOSED - see trace G2"],
+ ["Language / availability", "region FE; provider-restriction group test",
+  "restricted markets: mean AIS -0.44 vs +0.02 (p=0.007); absent entirely from AEI", "CLOSED for flagging; OPEN for formal language controls"],
+ ["Billing / cloud location", "OpenRouter as depth-only; hub sensitivity",
+  "not measurable: no API geography in any retrieved source", "OPEN"],
+ ["Reverse causality", "lagged treatment; forecast-surprise outcomes; lead placebos; pre-trend tests",
+  "2024 growth-surprise placebo exactly zero; MS pre-trend null (p=0.99); AEI pre-trend REAL (p=0.007)", "PARTIALLY CLOSED - AEI selection documented"],
+ ["Common macro shocks", "year FE per event-study year; sector FE; growth-surprise outcome",
+  "absorbed by design; shock-interaction family (H6) untested", "PARTIALLY CLOSED"],
+ ["Structural country differences", "country FE in every outcome regression; within-country identification",
+  "absorbed by design", "CLOSED"],
+ ["Measurement revision", "vintage pinning, SHA-256, immutable raw layer",
+  "Oct-2024 vs Apr-2026 WEO vintages held separately; Eurostat vintage 2026-08-24 recorded", "CLOSED"],
+ ["Specification search", "machine-readable ledger; max-stat permutation; Bayes factors",
+  "family p_search computed for every headline (0.0005 dynamics; 0.19 outcomes)", "CLOSED"],
+ ["Outliers / small N", "LOCO on every statistic; jackknife AIS; MDE analysis",
+  "LOCO ranges reported throughout; MDE table below quantifies the power ceiling", "CLOSED (reported), inherently binding"],
+]
+story.append(T(rows, [3.0*cm, 4.6*cm, 6.4*cm, 3.0*cm], fs=6.7))
+story.append(Spacer(1, 8))
+
+story.append(Paragraph("11. Trace map and pre-specified trend statistics (v2.1)", H1))
+P("The skeleton's section-7.1 dynamic statistics, computed on the event-study coefficient path, plus the "
+  "sector-split scan, the acceleration hypothesis (skeleton priority 3), and the producer sensitivity. Labels "
+  "are pre-declared and descriptive: <b>trace</b> = |z| at or above 1.96 unadjusted, <b>weak trace</b> = |z| at or "
+  "above 1.28, <b>no trace</b> otherwise. Traces flag follow-up work; the family correction still governs claims.")
+rows = [["Statistic / spec", "Question", "Result", "Verdict"]]
+rows += [
+ ["T1: trend in coefficient", "are AI-exposed sectors in high-AIS countries progressively pulling ahead?",
+  "%.2f per year, p = %.3f - a DECLINING path" % (TT["T1_trend"]["observed"], TT["T1_trend"]["p"]),
+  "weak trace after family correction; sign is NEGATIVE"],
+ ["T2: variance of coefficient", "does the relationship move more than random assignment predicts?",
+  "%.1f vs null %.1f, p = %.2f" % (TT["T2_var"]["observed"], TT["T2_var"]["null_mean"], TT["T2_var"]["p"]),
+  "weak trace of excess volatility"],
+ ["T3: persistence", "are positive/negative regimes persistent rather than sign-flipping?",
+  "lag-1 autocorr %.2f, p = %.2f" % (TT["T3_lag1"]["observed"], TT["T3_lag1"]["p"]), "no trace"],
+ ["S1: J-only, 2025", "is the null hiding a J-sector effect?",
+  "beta = %.2f, p = %.2f" % (ts["paths"]["J"][-1]["beta"], ts["paths"]["J"][-1]["p"]), "no trace"],
+ ["S1: K-only, 2025", "is the null hiding a finance effect?",
+  "beta = %.2f, p = %.2f" % (ts["paths"]["K"][-1]["beta"], ts["paths"]["K"][-1]["p"]), "no trace"],
+ ["A1: acceleration x exposure", "does adoption SPEED (not level) predict 2025 EPS?",
+  "beta = %.2f, p = %.2f" % (ts["A1_accel_eps"]["beta"], ts["A1_accel_eps"]["p"]), "no trace"],
+ ["A2: acceleration, macro", "does adoption speed predict 2025 growth surprise?",
+  "beta = %.2f, p = %.2f" % (ts["A2_accel_gsurp"]["beta"], ts["A2_accel_gsurp"]["p"]), "no trace"],
+ ["G2: producers removed", "does AI-producer exposure mask a user-side macro effect?",
+  "W1 moves from %.2f (p=%.2f) to %.2f (p=%.2f, N=%d)" % (
+   G2s["W1_full"]["beta"], G2s["W1_full"]["p"], G2s["W1_drop_producers"]["beta"],
+   G2s["W1_drop_producers"]["p"], G2s["W1_drop_producers"]["n"]),
+  "WEAK TRACE - the most interesting new lead"],
+]
+story.append(T(rows, [3.3*cm, 5.2*cm, 5.4*cm, 3.1*cm], fs=6.7))
+story.append(Spacer(1, 6))
+P("<b>The two leads worth carrying forward, stated with their caveats.</b> <b>(1) T1, the declining coefficient "
+  "path:</b> the differential growth of AI-exposed sectors in high-AIS countries has trended <i>down</i> "
+  "(%.2f pp/year, p = %.02f unadjusted, ~0.14 after correcting for the eight-spec trace family) — driven by the "
+  "2018 peak-to-2023 trough, i.e. the global tech cycle, not AI; its importance is as a warning that the "
+  "pre-period trend must be modeled, not assumed flat, when the 2026-27 vintages arrive. <b>(2) G2, the producer "
+  "unmasking:</b> removing AI-producer economies (KOR, TWN, NLD, IRL, SGP) doubles the negative association "
+  "between AIS and 2025 growth surprises (to %.2f, p = %.2f) — directionally consistent with the popular "
+  "'the capex boom pays producers first, adopters later' reading, and exactly the masking pattern the confounder "
+  "map predicted for producer exposure. Both are hypothesis-generating flags, not findings. Everything else — "
+  "including the sector splits and the acceleration hypothesis — shows <b>no trace</b> in 2025, and the trace map "
+  "shows every unadjusted band-crossing sits in pre-measurement years." % (
+   TT["T1_trend"]["observed"], TT["T1_trend"]["p"],
+   G2s["W1_drop_producers"]["beta"], G2s["W1_drop_producers"]["p"]))
+story.append(Image(os.path.join(REP, "fig6_trace_map.png"), width=16.0*cm, height=6.4*cm))
+story.append(Spacer(1, 6))
+P("<b>Minimum detectable effects (80 percent power), the design's ceiling.</b> Per one standard deviation of AIS "
+  "(sd = %.2f logit): E1 productivity design MDE ~%.1f pp of differential yearly growth against plausible effects "
+  "of 0.3-1.0 pp — underpowered by roughly 3-8x at a single year; W1 macro design MDE ~%.2f pp of growth surprise "
+  "against plausible 0.1-0.5 pp — underpowered by roughly 1.5-4x; the diffusion-divergence design is fully "
+  "powered (and detects decisively). Power grows with cumulated horizons: the 2026-27 vintages roughly halve the "
+  "E1 MDE by pooling two more outcome years against a frozen treatment." % (
+   MDEs["sd_ais"], MDEs["E1"]["mde80"] * MDEs["sd_ais"], MDEs["W1"]["mde80"] * MDEs["sd_ais"]))
+
+story.append(Paragraph("12. What remains: the TODO roadmap", H1))
+rows = [["Item", "Blocked on", "Expected information value"]]
+rows += [
+ ["2026-27 Eurostat + WEO vintages against the frozen AIS (the prospective test)", "time",
+  "HIGHEST - turns h=0 into h=1-2 and halves the MDE"],
+ ["External registration of the frozen confirmatory specs (OSF-style, hashed)", "user action", "high - converts self-attestation into verifiable preregistration"],
+ ["Latent-factor / IV provider reconciliation as core AIS (C2)", "a second AEI vintage window; OpenAI Signals", "high - D2 says single-provider AIS overclaims"],
+ ["ILOSTAT ISCO 1-4 white-collar denominators", "user download (rplumber.ilo.org CSV)", "medium - professional-intensity margin untested"],
+ ["Monthly services output (sts_sepr_m) as fast intermediate outcome", "user download from Eurostat", "medium - adds within-year timing"],
+ ["H6 shock-interaction family", "an identified 2025-26 shock series (e.g. tariff/energy shocks)", "medium - the second core family, untouched"],
+ ["OpenAI Signals + OpenRouter depth measures", "egress or user download", "medium - third/fourth provider for reconciliation"],
+ ["Producer-vs-user decomposition done properly (semiconductor trade weights)", "trade data (UN Comtrade blocked)", "medium - follows the G2 trace"],
+ ["Market-layer downstream validation (country equity returns)", "price history source", "low by design (most confounded layer)"],
+]
+story.append(T(rows, [7.6*cm, 4.6*cm, 4.8*cm], fs=6.9))
+story.append(Spacer(1, 8))
+
+story.append(Paragraph("13. Provenance", H1))
 rows = [["Artifact", "Bytes", "SHA-256 (first 16)"]]
 for m in retrieved:
     rows.append([m["source_id"] + "  " + m["name"][:58], str(m["bytes"]), m["sha256"][:16]])
