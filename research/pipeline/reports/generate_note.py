@@ -48,9 +48,9 @@ def T(rows, widths, header=True, fs=7.8):
 story = []
 P = lambda txt, st=BODY: story.append(Paragraph(txt, st))
 story.append(Paragraph("AI Integration and Economic Effects", TITLE))
-story.append(Paragraph("Research Note 1 (v1.2) — Canonical pipeline executed end-to-end: retrieval audit, validated adoption panel, "
-                       "AI Integration Surprise, diffusion dynamics, cross-provider test, and the priority-1 outcome regression · "
-                       "25 August 2026 · Evidence grade: EXPLORATORY", SUB))
+story.append(Paragraph("Research Note 1 (v1.3) — Canonical pipeline executed end-to-end: retrieval audit, validated adoption panel, "
+                       "AI Integration Surprise, diffusion dynamics, cross-provider test, the priority-1 outcome regression, "
+                       "and the 2016-2025 event study · 25 August 2026 · Evidence grade: EXPLORATORY", SUB))
 
 P("<b>Summary.</b> This note reports the first end-to-end execution of the research framework frozen in the design "
   "checklist: source retrieval with manifests and fingerprints, validation against published values, canonical panel "
@@ -257,9 +257,35 @@ P("<b>Result: null across the board, and honestly so.</b> The primary estimate i
    EE["E1"]["beta"], EE["E1"]["perm_p"], ez["family"]["p_search"], EE["E2"]["beta"],
    WW["W3"]["beta"], EE["E3_2023"]["beta"], EE["E3_2023"]["perm_p"], ez["persistence_h1_q1"]))
 story.append(Image(os.path.join(REP, "fig4_eps_null.png"), width=15.0*cm, height=9.7*cm))
+
+es = json.load(open(os.path.join(BASE, "exploration/event_study_results.json")))
+ms25 = next(o for o in es["ms"]["path"] if o["year"] == 2025)
+ms23 = next(o for o in es["ms"]["path"] if o["year"] == 2023)
+ms18 = next(o for o in es["ms"]["path"] if o["year"] == 2018)
+story.append(Paragraph("6c. Event study 2016-2025 (v1.3): the pre-trend question, resolved in two directions", H2))
+P("The full-panel form of the frozen specification — country×year and sector×year fixed effects with year-specific "
+  "AIS × exposure coefficients — was estimated for every outcome year 2016-2025, with a 95 percent permutation band "
+  "per year and a joint pre-period test (mean coefficient 2016-2023 against its permutation null). Two findings, "
+  "one per provider. <b>(1) Microsoft-based AIS: the 2023 'pre-trend hint' of Section 6 dissolves into noise.</b> "
+  "The joint pre-period mean is %.2f (p = %.2f) — no systematic pre-trend — but the yearly path swings between "
+  "%.1f (2018) and %.1f (2023): at 25 countries, single-year coefficients are simply volatile, and the 2018 spike "
+  "(p = %.3f, four years before ChatGPT) is the demonstration that one band-crossing per decade is this design's "
+  "noise floor. The 2025 estimate (%.2f, p = %.2f) sits well inside the band; the honest statement is not "
+  "'no effect' but 'no single year is informative at this sample size — cumulate horizons'. "
+  "<b>(2) Anthropic-based AIS carries a genuine negative pre-trend: mean %.2f over 2016-2023, joint p = %.4f — "
+  "running back to years before ChatGPT existed.</b> Economies that over-use Claude relative to structure had "
+  "systematically slower exposed-sector productivity growth already in 2016-2019: a selection effect, not an AI "
+  "effect. Any naive Claude-based outcome regression would inherit this as bias, violating the parallel-trends "
+  "prerequisite. This is the strongest evidence yet for the reconciliation-before-inference rule (C2): provider-"
+  "specific AIS measures embed provider-specific selection, and only components shared across providers should "
+  "enter outcome regressions." % (
+   es["ms"]["pre_mean_2016_2023"], es["ms"]["pre_joint_perm_p"], ms18["beta"], ms23["beta"], ms18["p"],
+   ms25["beta"], ms25["p"], es["aei"]["pre_mean_2016_2023"], es["aei"]["pre_joint_perm_p"]))
+story.append(Image(os.path.join(REP, "fig5_event_study.png"), width=15.2*cm, height=9.6*cm))
 P("Still blocked or missing: ILOSTAT white-collar denominators (ISCO), OpenAI Signals and OpenRouter measures, the "
   "monthly services-output intermediate outcome (sts_sepr_m), and any post-2025 outcome vintage — the latter being "
-  "the one that matters.")
+  "the one that matters. Raw-storage note: the Eurostat export is stored gzip-compressed in the repository; Git LFS "
+  "is unavailable because GitHub rejects LFS objects on public forks.")
 
 cp = json.load(open(os.path.join(BASE, "exploration/crossprovider_results.json")))
 story.append(Paragraph("6b. Addendum (v1.1): the second provider retrieved — and the H4 criterion bites", H1))
