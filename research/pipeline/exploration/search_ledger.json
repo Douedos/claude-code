@@ -383,5 +383,23 @@
     "spec": "X_family",
     "X1": -0.3646813139692075,
     "X2": 0.877007522407358
+  },
+  {
+    "spec": "B5_compounding_decomposition",
+    "provenance": "reviewer question: is B1 just exponential-growth arithmetic?",
+    "mean_proportional_growth": 0.18471338247766472,
+    "b1_observed_slope": 0.1358,
+    "common_rate_counterfactual_slope": 0.18471338247766472,
+    "verdict_mechanical": "YES for the pp-divergence headline: observed slope 0.136 is BELOW the 0.185 common-rate compounding benchmark; pp gap widening is the arithmetic of near-exponential growth (with mild sub-proportionality, B4=-0.021 p=0.002)",
+    "rate_on_income_alone": {
+      "slope": -0.0028,
+      "perm_p": 0.39
+    },
+    "rate_on_income_given_level": {
+      "slope": 0.01711227177857185,
+      "perm_p": 9.999000099990002e-05,
+      "level_slope": -0.060197331381272395
+    },
+    "verdict_structural": "NO for the rate composition: conditional on the current adoption level, growth RATES tilt with income (+0.017 per log-dollar, p=1e-4) - richer laggards compound faster; the divide is income-conditional rates, not levels"
   }
 ]
