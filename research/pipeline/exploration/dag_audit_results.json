@@ -1,0 +1,34 @@
+{
+  "observed_income_coef": 0.0171,
+  "calibration": {
+    "n": 142,
+    "mean_growth": 0.18471338247766472,
+    "sd_growth": 0.05742596757638076,
+    "corr_income_loglevel": 0.8322807196808187
+  },
+  "SIM_A_clean": {
+    "noise_sd": 0.0,
+    "mean_income_coef": 9.536335259974494e-05,
+    "sd_income_coef": 0.005884333852347865,
+    "q95_abs_coef": 0.011494023626506663,
+    "false_positive_rate_t2": 0.051,
+    "p_observed_vs_null": 0.0034982508745627187
+  },
+  "SIM_B_noise3": {
+    "noise_sd": 0.03,
+    "mean_income_coef": 0.003025741830106823,
+    "sd_income_coef": 0.007837564408939474,
+    "q95_abs_coef": 0.016578474046097146,
+    "false_positive_rate_t2": 0.067,
+    "p_observed_vs_null": 0.04397801099450275
+  },
+  "SIM_B_noise5": {
+    "noise_sd": 0.05,
+    "mean_income_coef": 0.008765449275339086,
+    "sd_income_coef": 0.009893000287697485,
+    "q95_abs_coef": 0.024629931553314475,
+    "false_positive_rate_t2": 0.1215,
+    "p_observed_vs_null": 0.21239380309845077
+  },
+  "verdict": "AT RISK: at least one null world produces coefficients of the observed size"
+}
