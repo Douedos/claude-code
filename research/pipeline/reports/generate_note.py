@@ -52,7 +52,7 @@ def T(rows, widths, header=True, fs=7.8):
 story = []
 P = lambda txt, st=BODY: story.append(Paragraph(txt, st))
 story.append(Paragraph("AI Integration and Economic Effects", TITLE))
-story.append(Paragraph("Research Note 1 (v2.2) — Canonical pipeline executed end-to-end: retrieval audit, validated adoption panel, "
+story.append(Paragraph("Research Note 1 (v2.3) — Canonical pipeline executed end-to-end: retrieval audit, validated adoption panel, "
                        "AI Integration Surprise, diffusion dynamics, cross-provider test, the priority-1 outcome regression, "
                        "the 2016-2025 event study, the Bayesian layer, the confounder scoreboard, the trace map, and the white-collar layer · "
                        "25 August 2026 · Evidence grade: EXPLORATORY", SUB))
@@ -66,7 +66,10 @@ P("<b>Summary.</b> This note reports the first end-to-end execution of the resea
   "gradient in adoption (logit slope %.2f per log-dollar of GDP per capita, R²=%.2f, N=%d) — and the largest <i>negative</i> "
   "surprises concentrate almost entirely in provider-restricted economies (mean AIS %.2f vs %.2f elsewhere, permutation "
   "p=%.3f), giving the first within-pipeline confirmation of the availability confounder (G3) the design anticipated. "
-  "<b>(3)</b> The additional finding: between H1 2025 and Q1 2026, global AI diffusion <b>diverged in absolute terms</b> — "
+  "<b>(3)</b> The additional finding, as corrected by the B5 decomposition (v2.3): percentage-point adoption gaps "
+  "widened between H1 2025 and Q1 2026, but the level-increment relation is <b>largely compounding arithmetic</b> "
+  "(observed slope 0.136 vs a 0.185 common-rate exponential benchmark); the structural fact is an income-gated "
+  "catch-up rate (+0.017 per log-dollar conditional on level, p=1e-4) — "
   "each percentage point of initial adoption predicts %.2f pp of additional growth over the window (search-adjusted "
   "permutation p=%.4f across the four-spec dynamic family; LOCO range [%.3f, %.3f]). The economic-outcome (EPS) "
   "regression — the design's priority-1 test — was initially blocked (every outcome source unreachable; Section 2), "
@@ -173,7 +176,7 @@ P("<b>Post-hoc finding C (flagged as post-hoc in the search ledger).</b> The neg
 story.append(Image(os.path.join(REP, "fig3_ais_ranking.png"), width=14.5*cm, height=11.6*cm))
 story.append(PageBreak())
 
-story.append(Paragraph("5. The additional finding: absolute divergence in global AI diffusion", H1))
+story.append(Paragraph("5. Widening adoption gaps: compounding arithmetic and an income-gated catch-up rate (revised v2.3)", H1))
 P("With three reporting periods (H1 2025 → Q1 2026, roughly nine months of coverage), the pre-declared dynamic family "
   "asks whether diffusion converges or diverges across economies. All four specifications were declared before "
   "estimation and every run is in the search ledger; the headline claim is search-adjusted by max-statistic "
@@ -198,7 +201,15 @@ P("<b>Reading.</b> An economy ten points higher in H1 2025 gained on average %.1
   "North-South gap of 9.8 → 10.6 → 12.1 points across the three periods, values we validated in Section 3)." % (
    B["B1"]["coef_init"]*10, B["B3"]["coef_init"], MS["observed_max_abs_t"], MS["p_search"], MS["family_size"],
    B["B4"]["coef_linit"]))
-P("<b>Honest mechanical caveat.</b> Under a logistic diffusion curve, absolute gains peak at 50 percent penetration; with "
+P("<b>Revision (v2.3), prompted by author review — the B5 decomposition.</b> The level-increment slope is largely "
+  "the arithmetic of exponential growth: if every economy compounded at the common mean rate (0.185 per window), "
+  "the slope would mechanically be 0.185 — <i>above</i> the observed 0.136, and the log-on-log regression (B4) "
+  "confirms growth is mildly sub-proportional. The decisive permutation and Bayes statistics therefore certify "
+  "compounding, not a Matthew effect. What survives as structure: conditional on the current adoption level, the "
+  "growth rate tilts with income (+0.017 per log-dollar, permutation p = 1e-4; income alone is null at p = 0.39 "
+  "through collinearity with level) — catch-up is income-gated. Ledgered as B5; the preprint's Section 6.2 "
+  "carries the full statement.")
+P("<b>Honest mechanical caveat (original, now subsumed by B5).</b> Under a logistic diffusion curve, absolute gains peak at 50 percent penetration; with "
   "most leaders still below 50 percent, absolute divergence is what standard S-curve diffusion predicts at this phase, "
   "not yet evidence of a permanent Matthew effect. The decisive question — whether laggards' takeoff is merely delayed "
   "(the historical norm for technology diffusion, cf. Comin-Hobijn) or structurally suppressed (the source report's own "

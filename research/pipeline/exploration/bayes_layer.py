@@ -148,9 +148,11 @@ ledger_update = [
       evidence="h=0 test uninformative by design (BF ~ 1 at J-curve scale); "
                "event study shows single-year noise floor; AEI variant carries pre-ChatGPT selection",
       posterior="essentially unchanged - the informative test is 2026-27 vintages"),
- dict(h="NEW: absolute diffusion divergence (levels)", prior="medium (S-curve predicts it)",
-      evidence=f"B1: BF10={bayes['B1']['scales']['0.15']['bf10']:.0f} at moderate scale",
-      posterior=f"~{bayes['B1']['scales']['0.15']['posterior_p_effect']:.3f} (near-certain at this scale)"),
+ dict(h="NEW: level-increment link in diffusion", prior="high (compounding implies it)",
+      evidence=f"B1: BF10={bayes['B1']['scales']['0.15']['bf10']:.0f}; B5 decomposition: observed slope "
+               "0.136 BELOW the 0.185 common-rate benchmark",
+      posterior="certain but reinterpreted: the decisive BF confirms compounding, not a Matthew "
+                "effect; the structural residue is the income-gated rate (+0.017/log$, p=1e-4)"),
  dict(h="NEW: single-provider AIS = national AI integration", prior="implicit high (v1.0 assumption)",
       evidence=f"D2: BF01={bayes['D2']['scales']['0.3']['bf01']:.2f} on agreement; "
                "AEI pre-trend p=0.007 shows provider-specific selection",

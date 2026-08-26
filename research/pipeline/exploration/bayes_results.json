@@ -137,10 +137,10 @@
       "posterior": "essentially unchanged - the informative test is 2026-27 vintages"
     },
     {
-      "h": "NEW: absolute diffusion divergence (levels)",
-      "prior": "medium (S-curve predicts it)",
-      "evidence": "B1: BF10=5223958277618168832 at moderate scale",
-      "posterior": "~1.000 (near-certain at this scale)"
+      "h": "NEW: level-increment link in diffusion",
+      "prior": "high (compounding implies it)",
+      "evidence": "B1: BF10=5223958277618168832; B5 decomposition: observed slope 0.136 BELOW the 0.185 common-rate benchmark",
+      "posterior": "certain but reinterpreted: the decisive BF confirms compounding, not a Matthew effect; the structural residue is the income-gated rate (+0.017/log$, p=1e-4)"
     },
     {
       "h": "NEW: single-provider AIS = national AI integration",

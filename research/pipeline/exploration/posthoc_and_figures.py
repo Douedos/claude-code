@@ -78,18 +78,22 @@ fig.tight_layout(); fig.savefig(os.path.join(REP, "fig1_adoption_income.png")); 
 
 fig, ax = plt.subplots(figsize=(6.5, 4.2))
 d = q1 - h1
+gbar = float(np.mean(d / h1))
 ax.scatter(h1, d, s=14, alpha=0.65, color="#2c6fbb")
 b1, *_ = np.linalg.lstsq(np.column_stack([np.ones(len(d)), h1]), d, rcond=None)
 xs = np.linspace(h1.min(), h1.max(), 50)
 ax.plot(xs, b1[0] + b1[1]*xs, color="black", lw=1.2,
-        label=f"slope={b1[1]:.3f} pp gained per pp initial (perm p<1e-4)")
+        label=f"observed fit: slope={b1[1]:.3f} pp per pp")
+ax.plot(xs, gbar * xs, color="#e67e22", lw=1.2, ls="--",
+        label=f"common-rate compounding benchmark: slope={gbar:.3f}")
 for tag in ("ARE","SGP","KOR","JPN","THA","USA","IND","NGA","FRA","ESP"):
     if tag in iso:
         i = iso.index(tag)
         ax.annotate(tag, (h1[i], d[i]), fontsize=7, xytext=(3,3), textcoords="offset points")
 ax.set_xlabel("AI user share, H1 2025 (%)")
 ax.set_ylabel("Change in AI user share, H1 2025 to Q1 2026 (pp)")
-ax.set_title("Absolute divergence: higher-adoption economies pull further ahead")
+ax.set_title("Level-increment relation in diffusion: consistent with compounding\n"
+             "observed slope below the exponential benchmark; catch-up is income-gated", fontsize=9.5)
 ax.legend(frameon=False, fontsize=8)
 fig.tight_layout(); fig.savefig(os.path.join(REP, "fig2_divergence.png")); plt.close(fig)
 

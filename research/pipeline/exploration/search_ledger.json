@@ -401,5 +401,85 @@
       "level_slope": -0.060197331381272395
     },
     "verdict_structural": "NO for the rate composition: conditional on the current adoption level, growth RATES tilt with income (+0.017 per log-dollar, p=1e-4) - richer laggards compound faster; the divide is income-conditional rates, not levels"
+  },
+  {
+    "spec": "BAYES_layer",
+    "inputs": {
+      "E1": [
+        -2.6364732092346332,
+        2.0129397733348124
+      ],
+      "W1": [
+        -0.2729266889167952,
+        0.4346563792966192
+      ],
+      "B1": [
+        0.13575552350528125,
+        0.014173625560262077
+      ],
+      "D2": [
+        0.18003797538366204,
+        0.09245003270420485
+      ]
+    },
+    "priors": {
+      "E1": [
+        0.5,
+        1.5,
+        3.0
+      ],
+      "W1": [
+        0.25,
+        0.75,
+        1.5
+      ],
+      "B1": [
+        0.05,
+        0.15,
+        0.3
+      ],
+      "D2": [
+        0.1,
+        0.3,
+        0.6
+      ]
+    },
+    "note": "declared before computation; see bayes_layer.py"
+  },
+  {
+    "spec": "C_posthoc_provider_restricted",
+    "provenance": "post-hoc; suggested by AIS bottom-rank inspection",
+    "group": [
+      "AFG",
+      "BLR",
+      "CHN",
+      "CUB",
+      "IRN",
+      "RUS",
+      "SYR"
+    ],
+    "mean_ais_restricted": -0.4400890293804268,
+    "mean_ais_rest": 0.0229354501677074,
+    "diff": -0.4630244795481342,
+    "perm_p": 0.007399260073992601,
+    "china_ais": -0.40211632838985845
+  },
+  {
+    "spec": "C_posthoc_provider_restricted",
+    "provenance": "post-hoc; suggested by AIS bottom-rank inspection",
+    "group": [
+      "AFG",
+      "BLR",
+      "CHN",
+      "CUB",
+      "IRN",
+      "RUS",
+      "SYR"
+    ],
+    "mean_ais_restricted": -0.4400890293804268,
+    "mean_ais_rest": 0.0229354501677074,
+    "diff": -0.4630244795481342,
+    "perm_p": 0.007399260073992601,
+    "china_ais": -0.40211632838985845
   }
 ]
