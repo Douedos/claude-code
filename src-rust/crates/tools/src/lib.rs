@@ -25,6 +25,7 @@ pub mod file_read;
 pub mod file_write;
 pub mod glob_tool;
 pub mod grep_tool;
+pub mod hypothesis_tool;
 pub mod mcp_resources;
 pub mod todo_write;
 pub mod notebook_edit;
@@ -52,6 +53,7 @@ pub use file_read::FileReadTool;
 pub use file_write::FileWriteTool;
 pub use glob_tool::GlobTool;
 pub use grep_tool::GrepTool;
+pub use hypothesis_tool::HypothesisAnalyzeTool;
 pub use mcp_resources::{ListMcpResourcesTool, ReadMcpResourceTool};
 pub use todo_write::TodoWriteTool;
 pub use notebook_edit::NotebookEditTool;
@@ -233,6 +235,7 @@ pub fn all_tools() -> Vec<Box<dyn Tool>> {
         Box::new(ConfigTool),
         Box::new(SendMessageTool),
         Box::new(SkillTool),
+        Box::new(HypothesisAnalyzeTool),
     ]
 }
 

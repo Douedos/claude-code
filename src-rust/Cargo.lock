@@ -276,6 +276,19 @@ dependencies = [
 ]
 
 [[package]]
+name = "cc-hypothesis"
+version = "1.0.0"
+dependencies = [
+ "cc-core",
+ "chrono",
+ "serde",
+ "serde_json",
+ "thiserror 2.0.18",
+ "tracing",
+ "uuid",
+]
+
+[[package]]
 name = "cc-mcp"
 version = "1.0.0"
 dependencies = [
@@ -326,6 +339,7 @@ dependencies = [
  "bytes",
  "cc-api",
  "cc-core",
+ "cc-hypothesis",
  "cc-mcp",
  "chrono",
  "dashmap",

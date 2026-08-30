@@ -11,6 +11,7 @@ members = [
     "crates/bridge",
     "crates/cli",
     "crates/buddy",
+    "crates/hypothesis",
 ]
 
 [workspace.package]
@@ -96,3 +97,4 @@ cc-commands = { path = "crates/commands" }
 cc-mcp = { path = "crates/mcp" }
 cc-bridge = { path = "crates/bridge" }
 cc-buddy = { path = "crates/buddy" }
+cc-hypothesis = { path = "crates/hypothesis" }

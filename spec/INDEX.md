@@ -23,6 +23,7 @@
 | 11 | [11_special_systems.md](11_special_systems.md) | 64 KB | Buddy/Tamagotchi, memdir, keybindings, skills, voice, plugins, migrations |
 | 12 | [12_constants_types.md](12_constants_types.md) | 83 KB | Every constant, type, OAuth config, system prompts, tool limits, beta headers |
 | 13 | [13_rust_codebase.md](13_rust_codebase.md) | 63 KB | Complete Rust rewrite: all 9 crates, 33 tools, query loop, TUI, bridge |
+| 14 | [14_hypothesis_engine.md](14_hypothesis_engine.md) | 13 KB | Quantitative hypothesis analysis engine: pipeline, data hub contract, stats, report schema, agentic workflow |
 
 ---
 
